@@ -14,6 +14,7 @@ public class Member {
     private long id;
     private String firstName;
     private String lastName;
+    private Long groupID;
     private boolean paidMembership;
     private boolean hasGloves;
     private boolean hasShoes;
@@ -22,13 +23,22 @@ public class Member {
     public Member() {
     }
 
-    public Member(String firstName, String lastName, boolean paidMembership, boolean hasGloves, boolean hasShoes, boolean hasClothes) {
+    public Member(String firstName, String lastName, Long groupID, boolean paidMembership, boolean hasGloves, boolean hasShoes, boolean hasClothes) {
         this.firstName = firstName;
         this.lastName = lastName;
+        this.groupID = groupID;
         this.paidMembership = paidMembership;
         this.hasGloves = hasGloves;
         this.hasShoes = hasShoes;
         this.hasClothes = hasClothes;
+    }
+
+    public Long getGroupID() {
+        return groupID;
+    }
+
+    public void setGroupID(Long groupID) {
+        this.groupID = groupID;
     }
 
     public long getId() {
@@ -93,6 +103,7 @@ public class Member {
                 "id=" + id +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
+                ", groupID=" + groupID +
                 ", paidMembership=" + paidMembership +
                 ", hasGloves=" + hasGloves +
                 ", hasShoes=" + hasShoes +
@@ -107,11 +118,12 @@ public class Member {
         Member member = (Member) o;
         return getId() == member.getId() &&
                 getFirstName().equals(member.getFirstName()) &&
-                getLastName().equals(member.getLastName());
+                getLastName().equals(member.getLastName()) &&
+                Objects.equals(getGroupID(), member.getGroupID());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getFirstName(), getLastName());
+        return Objects.hash(getId(), getFirstName(), getLastName(), getGroupID());
     }
 }
