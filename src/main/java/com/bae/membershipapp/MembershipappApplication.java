@@ -1,4 +1,4 @@
-package com.bae.membershipapp.membershipapp;
+package com.bae.membershipapp;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
