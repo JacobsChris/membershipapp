@@ -6,19 +6,19 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "GroupList")
-public class Group {
+public class Gathering {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String location;
 
-    @OneToMany(mappedBy = "groupID")
+    @OneToMany(mappedBy = "gatheringID")
     private Collection<Member> members;
 
 
 
-    public Group() {
+    public Gathering() {
     }
 
     public long getId() {
@@ -42,9 +42,9 @@ public class Group {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Group group = (Group) o;
-        return getId() == group.getId() &&
-                getLocation().equals(group.getLocation());
+        Gathering gathering = (Gathering) o;
+        return getId() == gathering.getId() &&
+                getLocation().equals(gathering.getLocation());
     }
 
     @Override

@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/memberapp")
+@RequestMapping("/member")
 public class MemberController {
     private MemberService memberService;
 
@@ -15,22 +15,22 @@ public class MemberController {
         this.memberService = memberService;
     }
 
-    @GetMapping("/member")
+    @GetMapping("/getAll")
     public List<Member> getAllMember() {
         return memberService.getAllMember();
     }
 
-    @PostMapping("/trainer")
+    @PostMapping("/create")
     public Member addNewMember(@RequestBody Member member) {
         return memberService.addNewMember(member);
     }
 
-    @PutMapping("/trainer")
+    @PutMapping("/update")
     public Member updateTrainer(@RequestBody Member member) {
         return memberService.updateMember(member);
     }
 
-    @DeleteMapping("/trainer/{id}")
+    @DeleteMapping("/delete/{id}")
     public String deleteTrainer(@PathVariable(value = "id") Long id) {
         return memberService.deleteMember(id);
     }
