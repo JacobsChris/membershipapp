@@ -1,11 +1,8 @@
 package com.bae.persistence.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Collection;
 import java.util.Objects;
-import java.util.Set;
 
 @Entity
 public class Group {
@@ -15,11 +12,12 @@ public class Group {
     private long id;
     private String location;
 
-    public Group() {
-    }
+    @OneToMany(mappedBy = "group")
+    private Collection<Member> members;
 
-    public Group(String location, int groupOfficers, Set<Member> members) {
-        this.location = location;
+
+
+    public Group() {
     }
 
     public long getId() {
@@ -59,6 +57,17 @@ public class Group {
                 "id=" + id +
                 ", location='" + location + '\'' +
                 '}';
+    }
+
+
+
+
+    public Collection<Member> getMembers() {
+        return members;
+    }
+
+    public void setMembers(Collection<Member> members) {
+        this.members = members;
     }
 }
 

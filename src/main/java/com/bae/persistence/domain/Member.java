@@ -1,9 +1,6 @@
 package com.bae.persistence.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
@@ -14,7 +11,11 @@ public class Member {
     private long id;
     private String firstName;
     private String lastName;
-    private Long groupID;
+
+    @ManyToOne
+    @JoinColumn(name="members")
+    private Group group;
+
     private enumBool paidMembership;
     private enumBool hasGloves;
     private enumBool hasShoes;
@@ -24,23 +25,14 @@ public class Member {
     public Member() {
     }
 
-    public Member(String firstName, String lastName, Long groupID, enumBool paidMembership, enumBool hasGloves, enumBool hasShoes, enumBool hasClothes, enumBool isGroupOfficer) {
+    public Member(String firstName, String lastName, enumBool paidMembership, enumBool hasGloves, enumBool hasShoes, enumBool hasClothes, enumBool isGroupOfficer) {
         this.firstName = firstName;
         this.lastName = lastName;
-        this.groupID = groupID;
         this.paidMembership = paidMembership;
         this.hasGloves = hasGloves;
         this.hasShoes = hasShoes;
         this.hasClothes = hasClothes;
         this.isGroupOfficer = isGroupOfficer;
-    }
-
-    public Long getGroupID() {
-        return groupID;
-    }
-
-    public void setGroupID(Long groupID) {
-        this.groupID = groupID;
     }
 
     public long getId() {
@@ -100,9 +92,13 @@ public class Member {
     }
 
 
-    public enumBool isGroupOfficer() {return isGroupOfficer;}
+    public enumBool isGroupOfficer() {
+        return isGroupOfficer;
+    }
 
-    public void setGroupOfficer(enumBool groupOfficer) {isGroupOfficer = groupOfficer;}
+    public void setGroupOfficer(enumBool groupOfficer) {
+        isGroupOfficer = groupOfficer;
+    }
 
     @Override
     public String toString() {
@@ -110,7 +106,7 @@ public class Member {
                 "id=" + id +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
-                ", groupID=" + groupID +
+//                ", groupID=" + groupID +
                 ", paidMembership=" + paidMembership +
                 ", hasGloves=" + hasGloves +
                 ", hasShoes=" + hasShoes +
@@ -126,12 +122,11 @@ public class Member {
         Member member = (Member) o;
         return getId() == member.getId() &&
                 getFirstName().equals(member.getFirstName()) &&
-                getLastName().equals(member.getLastName()) &&
-                Objects.equals(getGroupID(), member.getGroupID());
+                getLastName().equals(member.getLastName());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getFirstName(), getLastName(), getGroupID());
+        return Objects.hash(getId(), getFirstName(), getLastName());
     }
 }
