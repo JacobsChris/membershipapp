@@ -1,6 +1,9 @@
 package com.bae.persistence.domain;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.util.Objects;
 import java.util.Set;
 
@@ -17,7 +20,6 @@ public class Group {
 
     public Group(String location, int groupOfficers, Set<Member> members) {
         this.location = location;
-        this.members = members;
     }
 
     public long getId() {
@@ -36,8 +38,6 @@ public class Group {
         this.location = location;
     }
 
-    @OneToMany(mappedBy = "groupID", cascade = CascadeType.ALL)
-    private Set<Member> members;
 
     @Override
     public boolean equals(Object o) {
