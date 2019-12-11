@@ -14,7 +14,7 @@ public class Member {
 
     @ManyToOne
     @JoinColumn(name="members")
-    private Group group;
+    private Group groupID;
 
     private enumBool paidMembership;
     private enumBool hasGloves;
@@ -106,7 +106,7 @@ public class Member {
                 "id=" + id +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
-//                ", groupID=" + groupID +
+                ", groupID=" + groupID +
                 ", paidMembership=" + paidMembership +
                 ", hasGloves=" + hasGloves +
                 ", hasShoes=" + hasShoes +

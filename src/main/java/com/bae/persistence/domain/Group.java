@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.Objects;
 
 @Entity
+@Table(name = "GroupList")
 public class Group {
 
     @Id
@@ -12,7 +13,7 @@ public class Group {
     private long id;
     private String location;
 
-    @OneToMany(mappedBy = "group")
+    @OneToMany(mappedBy = "groupID")
     private Collection<Member> members;
 
 
@@ -62,13 +63,6 @@ public class Group {
 
 
 
-    public Collection<Member> getMembers() {
-        return members;
-    }
-
-    public void setMembers(Collection<Member> members) {
-        this.members = members;
-    }
 }
 
 
