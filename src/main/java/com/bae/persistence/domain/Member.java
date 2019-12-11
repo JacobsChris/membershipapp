@@ -19,11 +19,12 @@ public class Member {
     private boolean hasGloves;
     private boolean hasShoes;
     private boolean hasClothes;
+    private boolean isGroupOfficer;
 
     public Member() {
     }
 
-    public Member(String firstName, String lastName, Long groupID, boolean paidMembership, boolean hasGloves, boolean hasShoes, boolean hasClothes) {
+    public Member(String firstName, String lastName, Long groupID, boolean paidMembership, boolean hasGloves, boolean hasShoes, boolean hasClothes, boolean isGroupOfficer) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.groupID = groupID;
@@ -31,6 +32,7 @@ public class Member {
         this.hasGloves = hasGloves;
         this.hasShoes = hasShoes;
         this.hasClothes = hasClothes;
+        this.isGroupOfficer = isGroupOfficer;
     }
 
     public Long getGroupID() {
@@ -97,6 +99,11 @@ public class Member {
         this.hasClothes = hasClothes;
     }
 
+
+    public boolean isGroupOfficer() {return isGroupOfficer;}
+
+    public void setGroupOfficer(boolean groupOfficer) {isGroupOfficer = groupOfficer;}
+
     @Override
     public String toString() {
         return "Member{" +
@@ -108,6 +115,7 @@ public class Member {
                 ", hasGloves=" + hasGloves +
                 ", hasShoes=" + hasShoes +
                 ", hasClothes=" + hasClothes +
+                ", isGroupOfficer=" + isGroupOfficer +
                 '}';
     }
 
