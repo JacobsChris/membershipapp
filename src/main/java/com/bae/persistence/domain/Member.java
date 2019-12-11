@@ -15,16 +15,16 @@ public class Member {
     private String firstName;
     private String lastName;
     private Long groupID;
-    private boolean paidMembership;
-    private boolean hasGloves;
-    private boolean hasShoes;
-    private boolean hasClothes;
-    private boolean isGroupOfficer;
+    private enumBool paidMembership;
+    private enumBool hasGloves;
+    private enumBool hasShoes;
+    private enumBool hasClothes;
+    private enumBool isGroupOfficer;
 
     public Member() {
     }
 
-    public Member(String firstName, String lastName, Long groupID, boolean paidMembership, boolean hasGloves, boolean hasShoes, boolean hasClothes, boolean isGroupOfficer) {
+    public Member(String firstName, String lastName, Long groupID, enumBool paidMembership, enumBool hasGloves, enumBool hasShoes, enumBool hasClothes, enumBool isGroupOfficer) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.groupID = groupID;
@@ -67,42 +67,42 @@ public class Member {
         this.lastName = lastName;
     }
 
-    public boolean isPaidMembership() {
+    public enumBool isPaidMembership() {
         return paidMembership;
     }
 
-    public void setPaidMembership(boolean paidMembership) {
+    public void setPaidMembership(enumBool paidMembership) {
         this.paidMembership = paidMembership;
     }
 
-    public boolean isHasGloves() {
+    public enumBool isHasGloves() {
         return hasGloves;
     }
 
-    public void setHasGloves(boolean hasGloves) {
+    public void setHasGloves(enumBool hasGloves) {
         this.hasGloves = hasGloves;
     }
 
-    public boolean isHasShoes() {
+    public enumBool isHasShoes() {
         return hasShoes;
     }
 
-    public void setHasShoes(boolean hasShoes) {
+    public void setHasShoes(enumBool hasShoes) {
         this.hasShoes = hasShoes;
     }
 
-    public boolean isHasClothes() {
+    public enumBool isHasClothes() {
         return hasClothes;
     }
 
-    public void setHasClothes(boolean hasClothes) {
+    public void setHasClothes(enumBool hasClothes) {
         this.hasClothes = hasClothes;
     }
 
 
-    public boolean isGroupOfficer() {return isGroupOfficer;}
+    public enumBool isGroupOfficer() {return isGroupOfficer;}
 
-    public void setGroupOfficer(boolean groupOfficer) {isGroupOfficer = groupOfficer;}
+    public void setGroupOfficer(enumBool groupOfficer) {isGroupOfficer = groupOfficer;}
 
     @Override
     public String toString() {
