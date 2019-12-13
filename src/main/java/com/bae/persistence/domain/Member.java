@@ -1,9 +1,6 @@
 package com.bae.persistence.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
@@ -14,33 +11,28 @@ public class Member {
     private long id;
     private String firstName;
     private String lastName;
-    private Long groupID;
-    private enumBool paidMembership;
-    private enumBool hasGloves;
-    private enumBool hasShoes;
-    private enumBool hasClothes;
-    private enumBool isGroupOfficer;
+
+    @ManyToOne
+    @JoinColumn(name="members")
+    private Gathering gatheringID;
+
+    private boolean paidMembership;
+    private boolean hasGloves;
+    private boolean hasShoes;
+    private boolean hasClothes;
+    private boolean isGatheringOfficer;
 
     public Member() {
     }
 
-    public Member(String firstName, String lastName, Long groupID, enumBool paidMembership, enumBool hasGloves, enumBool hasShoes, enumBool hasClothes, enumBool isGroupOfficer) {
+    public Member(String firstName, String lastName, boolean paidMembership, boolean hasGloves, boolean hasShoes, boolean hasClothes, boolean isGatheringOfficer) {
         this.firstName = firstName;
         this.lastName = lastName;
-        this.groupID = groupID;
         this.paidMembership = paidMembership;
         this.hasGloves = hasGloves;
         this.hasShoes = hasShoes;
         this.hasClothes = hasClothes;
-        this.isGroupOfficer = isGroupOfficer;
-    }
-
-    public Long getGroupID() {
-        return groupID;
-    }
-
-    public void setGroupID(Long groupID) {
-        this.groupID = groupID;
+        this.isGatheringOfficer = isGatheringOfficer;
     }
 
     public long getId() {
@@ -67,42 +59,46 @@ public class Member {
         this.lastName = lastName;
     }
 
-    public enumBool isPaidMembership() {
+    public boolean isPaidMembership() {
         return paidMembership;
     }
 
-    public void setPaidMembership(enumBool paidMembership) {
+    public void setPaidMembership(boolean paidMembership) {
         this.paidMembership = paidMembership;
     }
 
-    public enumBool isHasGloves() {
+    public boolean isHasGloves() {
         return hasGloves;
     }
 
-    public void setHasGloves(enumBool hasGloves) {
+    public void setHasGloves(boolean hasGloves) {
         this.hasGloves = hasGloves;
     }
 
-    public enumBool isHasShoes() {
+    public boolean isHasShoes() {
         return hasShoes;
     }
 
-    public void setHasShoes(enumBool hasShoes) {
+    public void setHasShoes(boolean hasShoes) {
         this.hasShoes = hasShoes;
     }
 
-    public enumBool isHasClothes() {
+    public boolean isHasClothes() {
         return hasClothes;
     }
 
-    public void setHasClothes(enumBool hasClothes) {
+    public void setHasClothes(boolean hasClothes) {
         this.hasClothes = hasClothes;
     }
 
 
-    public enumBool isGroupOfficer() {return isGroupOfficer;}
+    public boolean isGatheringOfficer() {
+        return isGatheringOfficer;
+    }
 
-    public void setGroupOfficer(enumBool groupOfficer) {isGroupOfficer = groupOfficer;}
+    public void setGatheringOfficer(boolean gatheringOfficer) {
+        isGatheringOfficer = gatheringOfficer;
+    }
 
     @Override
     public String toString() {
@@ -110,12 +106,12 @@ public class Member {
                 "id=" + id +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
-                ", groupID=" + groupID +
+                ", groupID=" + gatheringID +
                 ", paidMembership=" + paidMembership +
                 ", hasGloves=" + hasGloves +
                 ", hasShoes=" + hasShoes +
                 ", hasClothes=" + hasClothes +
-                ", isGroupOfficer=" + isGroupOfficer +
+                ", isGatheringOfficer=" + isGatheringOfficer +
                 '}';
     }
 
@@ -126,12 +122,11 @@ public class Member {
         Member member = (Member) o;
         return getId() == member.getId() &&
                 getFirstName().equals(member.getFirstName()) &&
-                getLastName().equals(member.getLastName()) &&
-                Objects.equals(getGroupID(), member.getGroupID());
+                getLastName().equals(member.getLastName());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getFirstName(), getLastName(), getGroupID());
+        return Objects.hash(getId(), getFirstName(), getLastName());
     }
 }

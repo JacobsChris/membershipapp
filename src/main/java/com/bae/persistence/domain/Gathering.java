@@ -1,25 +1,24 @@
 package com.bae.persistence.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Collection;
 import java.util.Objects;
-import java.util.Set;
 
 @Entity
-public class Group {
+@Table(name = "GroupList")
+public class Gathering {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String location;
 
-    public Group() {
-    }
+    @OneToMany(mappedBy = "gatheringID")
+    private Collection<Member> members;
 
-    public Group(String location, int groupOfficers, Set<Member> members) {
-        this.location = location;
+
+
+    public Gathering() {
     }
 
     public long getId() {
@@ -43,9 +42,9 @@ public class Group {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Group group = (Group) o;
-        return getId() == group.getId() &&
-                getLocation().equals(group.getLocation());
+        Gathering gathering = (Gathering) o;
+        return getId() == gathering.getId() &&
+                getLocation().equals(gathering.getLocation());
     }
 
     @Override
@@ -60,6 +59,10 @@ public class Group {
                 ", location='" + location + '\'' +
                 '}';
     }
+
+
+
+
 }
 
 
