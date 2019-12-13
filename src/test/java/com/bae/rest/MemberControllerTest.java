@@ -32,7 +32,6 @@ public class MemberControllerTest {
     @Before
     public void init() {
         this.memberList = new ArrayList<>();
-//        this.testMember.setId(id);
         this.testMember = new Member("Katie", "Eveleigh", true, true, true, true, true);
         this.testMemberWithID = new Member(testMember.getFirstName(), testMember.getLastName(), testMember.isPaidMembership(), testMember.isHasGloves(), testMember.isHasShoes(), testMember.isHasClothes(), testMember.isGatheringOfficer());
         this.testMemberWithID.setId(id);
