@@ -8,6 +8,7 @@ import java.util.Objects;
 @Table(name = "GroupList")
 public class Gathering {
 
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -17,8 +18,12 @@ public class Gathering {
     private Collection<Member> members;
 
 
-
     public Gathering() {
+    }
+
+    public Gathering(String location, Collection<Member> members) {
+        this.location = location;
+        this.members = members;
     }
 
     public long getId() {
@@ -37,6 +42,13 @@ public class Gathering {
         this.location = location;
     }
 
+    public Collection<Member> getMembers() {
+        return members;
+    }
+
+    public void setMembers(Collection<Member> members) {
+        this.members = members;
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -44,25 +56,21 @@ public class Gathering {
         if (o == null || getClass() != o.getClass()) return false;
         Gathering gathering = (Gathering) o;
         return getId() == gathering.getId() &&
-                getLocation().equals(gathering.getLocation());
+                getLocation().equals(gathering.getLocation()) &&
+                getMembers().equals(gathering.getMembers());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getLocation());
+        return Objects.hash(getId(), getLocation(), getMembers());
     }
 
     @Override
     public String toString() {
-        return "Group{" +
+        return "Gathering{" +
                 "id=" + id +
                 ", location='" + location + '\'' +
+                ", members=" + members +
                 '}';
     }
-
-
-
-
 }
-
-

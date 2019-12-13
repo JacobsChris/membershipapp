@@ -1,5 +1,6 @@
 package com.bae.service;
 
+import com.bae.gathering.exceptions.GatheringNotFoundException;
 import com.bae.persistence.domain.Gathering;
 import com.bae.persistence.repo.GatheringRepo;
 import org.springframework.stereotype.Service;
@@ -23,13 +24,21 @@ public class GatheringService {
         return gatheringRepo.save(gathering);
     }
 
-    public Gathering updateGathering(Gathering gathering) {
-        return gatheringRepo.save(gathering);
+    public Gathering updateGathering(Gathering gathering, Long id) {
+        Gathering toUpdate = findGatheringByID(id);
+        toUpdate.setLocation(gathering.getLocation());
+        toUpdate.setMembers(gathering.getMembers());
+        return this.gatheringRepo.save(toUpdate);
     }
 
     public String deleteGathering(Long id) {
         gatheringRepo.deleteById(id);
         return "Trainer successfully deleted";
 
+    }
+
+    public Gathering findGatheringByID(long id) {
+        return this.gatheringRepo.findById(id).orElseThrow((
+                () -> new GatheringNotFoundException()));
     }
 }
