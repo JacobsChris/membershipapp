@@ -4,6 +4,7 @@ import com.bae.persistence.domain.Member;
 import com.bae.service.MemberService;
 import org.springframework.web.bind.annotation.*;
 
+import javax.websocket.server.PathParam;
 import java.util.List;
 
 @RestController
@@ -11,7 +12,7 @@ import java.util.List;
 public class MemberController {
     private MemberService memberService;
 
-    public MemberController(MemberService memberService){
+    public MemberController(MemberService memberService) {
         this.memberService = memberService;
     }
 
@@ -20,18 +21,24 @@ public class MemberController {
         return memberService.getAllMember();
     }
 
+    @GetMapping("/get/{id}")
+    public Member getMember(@PathVariable Long id) {
+        return this.memberService.findMemberByID(id);
+    }
+
     @PostMapping("/create")
     public Member addNewMember(@RequestBody Member member) {
         return memberService.addNewMember(member);
     }
 
     @PutMapping("/update")
-    public Member updateTrainer(@RequestBody Member member) {
-        return memberService.updateMember(member);
+    public Member updateMember(@PathParam("id") Long id, @RequestBody Member member) {
+        return this.memberService.updateMember(member, id);
     }
 
+
     @DeleteMapping("/delete/{id}")
-    public String deleteTrainer(@PathVariable(value = "id") Long id) {
+    public String deleteMember(@PathVariable(value = "id") Long id) {
         return memberService.deleteMember(id);
     }
 }
