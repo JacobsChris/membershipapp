@@ -31,7 +31,7 @@ public class MemberController {
         return memberService.addNewMember(member);
     }
 
-    @PutMapping("/update")
+    @PutMapping("/update/{id}")
     public Member updateMember(@PathParam("id") Long id, @RequestBody Member member) {
         return this.memberService.updateMember(member, id);
     }
