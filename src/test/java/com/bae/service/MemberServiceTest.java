@@ -34,7 +34,7 @@ public class MemberServiceTest {
         this.memberList = new ArrayList<>();
         this.memberList.add(testMember);
         this.testMember = new Member("Katie", "Eveleigh", true, true, true, true, true);
-        this.testMemberWithID = new Member(testMember.getFirstName(), testMember.getFirstName(), testMember.isPaidMembership(), testMember.isHasGloves(), testMember.isHasShoes(), testMember.isHasClothes(), testMember.isGatheringOfficer());
+        this.testMemberWithID = new Member(testMember.getFirstName(), testMember.getLastName(), testMember.isPaidMembership(), testMember.isHasGloves(), testMember.isHasShoes(), testMember.isHasClothes(), testMember.isGatheringOfficer());
         this.testMemberWithID.setId(id);
 
     }
@@ -51,17 +51,15 @@ public class MemberServiceTest {
 
     @Test
     public void deleteMemberTest() {
-        when(this.repo.existsById(id)).thenReturn(true, false);
         this.service.deleteMember(id);
         verify(this.repo, times(1)).deleteById(id);
-        verify(this.repo, times(2)).deleteById(id);
     }
 
     @Test
     public void findMemberByID() {
         when(this.repo.findById(this.id)).thenReturn(Optional.of(this.testMemberWithID));
         assertEquals(this.testMemberWithID, this.service.findMemberByID((this.id)));
-        verify(this.repo, times(1)).save(this.testMember);
+        verify(this.repo, times(1)).findById(this.id);
     }
 
     @Test
@@ -74,11 +72,14 @@ public class MemberServiceTest {
     @Test
     public void updateMembersTest() {
         Member newMember = new Member("Katie", "Eveleigh", true, true, true, true, true);
-        Member updatedMember = new Member(testMember.getFirstName(), testMember.getFirstName(), testMember.isPaidMembership(), testMember.isHasGloves(), testMember.isHasShoes(), testMember.isHasClothes(), testMember.isGatheringOfficer());
+        Member updatedMember = newMember; // Member(newMember.getFirstName(), newMember.getLastName(), newMember.isPaidMembership(), newMember.isHasGloves(), newMember.isHasShoes(), newMember.isHasClothes(), newMember.isGatheringOfficer());
         updatedMember.setId(this.id);
+
         when(this.repo.findById(this.id)).thenReturn(Optional.of(this.testMemberWithID));
         when(this.repo.save(updatedMember)).thenReturn(updatedMember);
+
         assertEquals(updatedMember, this.service.updateMember(newMember, this.id));
+
         verify(this.repo, times(1)).findById(this.id);
         verify(this.repo, times(1)).save(updatedMember);
     }
