@@ -31,7 +31,7 @@ public class MemberServiceIntegrationTest {
     @Before
     public void init() {
         this.testMember = new Member("Katie", "Eveleigh", true, true, true, true, true);
-        this.testMemberWithID = testMember; // Member(newMember.getFirstName(), newMember.getLastName(), newMember.isPaidMembership(), newMember.isHasGloves(), newMember.isHasShoes(), newMember.isHasClothes(), newMember.isGatheringOfficer());
+        this.testMemberWithID = new Member(testMember.getFirstName(), testMember.getLastName(), testMember.isPaidMembership(), testMember.isHasGloves(), testMember.isHasShoes(), testMember.isHasClothes(), testMember.isGatheringOfficer());
 
         this.repo.deleteAll();
 

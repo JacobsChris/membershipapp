@@ -33,7 +33,7 @@ public class GatheringService {
 
     public String deleteGathering(Long id) {
         gatheringRepo.deleteById(id);
-        return "Trainer successfully deleted";
+        return "Group successfully deleted";
 
     }
 
