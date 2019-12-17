@@ -35,7 +35,7 @@ public class MemberService {
         toUpdate.setLastName(member.getLastName());
         toUpdate.setPaidMembership(member.isPaidMembership());
         toUpdate.setHasClothes(member.isHasClothes());
-        toUpdate.setGatheringOfficer(member.isGatheringOfficer());
+        toUpdate.setIsGatheringOfficer(member.isIsGatheringOfficer());
         toUpdate.setHasGloves(member.isHasGloves());
         toUpdate.setHasShoes(member.isHasShoes());
         return memberRepo.save(member);

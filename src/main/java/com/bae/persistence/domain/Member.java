@@ -92,12 +92,12 @@ public class Member {
     }
 
 
-    public boolean isGatheringOfficer() {
+    public boolean isIsGatheringOfficer() {
         return isGatheringOfficer;
     }
 
-    public void setGatheringOfficer(boolean gatheringOfficer) {
-        isGatheringOfficer = gatheringOfficer;
+    public void setIsGatheringOfficer(boolean isGatheringOfficer) {
+        this.isGatheringOfficer = isGatheringOfficer;
     }
 
     @Override

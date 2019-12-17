@@ -34,7 +34,7 @@ public class MemberServiceTest {
         this.memberList = new ArrayList<>();
         this.memberList.add(testMember);
         this.testMember = new Member("Katie", "Eveleigh", true, true, true, true, true);
-        this.testMemberWithID = new Member(testMember.getFirstName(), testMember.getLastName(), testMember.isPaidMembership(), testMember.isHasGloves(), testMember.isHasShoes(), testMember.isHasClothes(), testMember.isGatheringOfficer());
+        this.testMemberWithID = new Member(testMember.getFirstName(), testMember.getLastName(), testMember.isPaidMembership(), testMember.isHasGloves(), testMember.isHasShoes(), testMember.isHasClothes(), testMember.isIsGatheringOfficer());
         this.testMemberWithID.setId(id);
 
     }

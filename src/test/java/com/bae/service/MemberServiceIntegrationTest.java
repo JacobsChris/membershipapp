@@ -31,7 +31,7 @@ public class MemberServiceIntegrationTest {
     @Before
     public void init() {
         this.testMember = new Member("Katie", "Eveleigh", true, true, true, true, true);
-        this.testMemberWithID = new Member(testMember.getFirstName(), testMember.getLastName(), testMember.isPaidMembership(), testMember.isHasGloves(), testMember.isHasShoes(), testMember.isHasClothes(), testMember.isGatheringOfficer());
+        this.testMemberWithID = new Member(testMember.getFirstName(), testMember.getLastName(), testMember.isPaidMembership(), testMember.isHasGloves(), testMember.isHasShoes(), testMember.isHasClothes(), testMember.isIsGatheringOfficer());
 
         this.repo.deleteAll();
 
@@ -70,7 +70,7 @@ public class MemberServiceIntegrationTest {
     public void testUpdateMember() {
         Member newMember = new Member("Katie", "Eveleigh", true, true, true, true, true);
         newMember.setId(this.testMemberWithID.getId());
-        Member updatedMember = new Member(newMember.getFirstName(), newMember.getLastName(), newMember.isPaidMembership(), newMember.isHasGloves(), newMember.isHasShoes(), newMember.isHasClothes(), newMember.isGatheringOfficer());
+        Member updatedMember = new Member(newMember.getFirstName(), newMember.getLastName(), newMember.isPaidMembership(), newMember.isHasGloves(), newMember.isHasShoes(), newMember.isHasClothes(), newMember.isIsGatheringOfficer());
         updatedMember.setId(this.testMemberWithID.getId());
         assertEquals(this.service.updateMember(newMember, this.testMemberWithID.getId()), updatedMember);
     }
