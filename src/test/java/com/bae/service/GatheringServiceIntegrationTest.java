@@ -63,6 +63,7 @@ public class GatheringServiceIntegrationTest {
         assertEquals("Member not found exception", x);
     }
 
+
     @Test
     public void testFindGatheringByID() {
         assertThat(this.service.findGatheringByID(this.testGatheringWithID.getId())).isEqualTo(this.testGatheringWithID);
