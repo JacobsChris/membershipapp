@@ -17,8 +17,11 @@ public class Gathering {
     @OneToMany(mappedBy = "gatheringID")
     private Collection<Member> members;
 
-
     public Gathering() {
+    }
+
+    public Gathering(String location) {
+        this.location = location;
     }
 
     public Gathering(String location, Collection<Member> members) {
@@ -43,7 +46,7 @@ public class Gathering {
     }
 
     public Collection<Member> getMembers() {
-        return members;
+        return this.members;
     }
 
     public void setMembers(Collection<Member> members) {
@@ -56,8 +59,8 @@ public class Gathering {
         if (o == null || getClass() != o.getClass()) return false;
         Gathering gathering = (Gathering) o;
         return getId() == gathering.getId() &&
-                getLocation().equals(gathering.getLocation()) &&
-                getMembers().equals(gathering.getMembers());
+                getLocation().equals(gathering.getLocation());//&&
+        //getMembers().equals(gathering.getMembers());
     }
 
     @Override

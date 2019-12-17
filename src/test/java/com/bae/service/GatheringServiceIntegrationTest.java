@@ -1,6 +1,6 @@
 package com.bae.service;
 
-import com.bae.member.exceptions.MemberNotFoundException;
+import com.bae.gathering.exceptions.GatheringNotFoundException;
 import com.bae.persistence.domain.Gathering;
 import com.bae.persistence.domain.Member;
 import com.bae.persistence.repo.GatheringRepo;
@@ -15,7 +15,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import java.util.Collection;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
 @RunWith(SpringRunner.class)
@@ -34,8 +34,7 @@ public class GatheringServiceIntegrationTest {
 
     @Before
     public void init() {
-        Collection<Member> members = null;
-        this.testGathering = new Gathering("Cardiff", members);
+        this.testGathering = new Gathering("Cardiff");
         this.repo.deleteAll();
         this.testGatheringWithID = this.repo.save(this.testGathering);
 
@@ -50,14 +49,18 @@ public class GatheringServiceIntegrationTest {
     @Test
     public void testDeleteGathering() {
         assertEquals("Group successfully deleted", this.service.deleteGathering((this.testGatheringWithID.getId())));
+        String x = "sucess";
         try {
             this.service.findGatheringByID(this.testGatheringWithID.getId());
-        } catch (MemberNotFoundException e) {
-            assertTrue(true);
+        } catch (GatheringNotFoundException e) {
+            x = "Member not found exception";
         } catch (Exception e) {
-            fail();
+            if (!(x == "Member not found exception")) {
+                x = "error: " + e;
+            }
         }
 
+        assertEquals("Member not found exception", x);
     }
 
     @Test
