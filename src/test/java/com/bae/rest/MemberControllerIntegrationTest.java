@@ -33,36 +33,36 @@ public class MemberControllerIntegrationTest {
     private MemberRepo repo;
     private ObjectMapper mapper = new ObjectMapper();
     private long id;
-    private Member testmember;
+    private Member testMember;
     private Member testMemberWithID;
 
     @Before
     public void init() {
         this.repo.deleteAll();
-        this.testmember = new Member("Katie", "Eveleigh", true, true, true, true, true);
-        this.testMemberWithID = this.repo.save(this.testmember);
+        this.testMember = new Member("Katie", "Eveleigh", true, true, true, true, true);
+        this.testMemberWithID = this.repo.save(this.testMember);
         this.id = this.testMemberWithID.getId();
     }
 
     @Test
     public void testAddMember() throws Exception {
         String result = this.mock
-                .perform(request(HttpMethod.POST, "/create").contentType(MediaType.APPLICATION_JSON)
-                        .content(this.mapper.writeValueAsString(testmember)).accept(MediaType.APPLICATION_JSON))
+                .perform(request(HttpMethod.POST, "/member/create").contentType(MediaType.APPLICATION_JSON)
+                        .content(this.mapper.writeValueAsString(testMember)).accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
         assertEquals(this.mapper.writeValueAsString(testMemberWithID), result);
     }
 
     @Test
     public void testDeleteMember() throws Exception {
-        this.mock.perform(request(HttpMethod.DELETE, "/delete/" + this.id)).andExpect(status().isOk());
+        this.mock.perform(request(HttpMethod.DELETE, "/member/delete/" + this.id)).andExpect(status().isOk());
     }
 
     @Test
     public void testGetAllMembers() throws Exception {
         List<Member> memberList = new ArrayList<>();
         memberList.add(this.testMemberWithID);
-        String content = this.mock.perform(request(HttpMethod.GET, "/getAll").accept(MediaType.APPLICATION_JSON))
+        String content = this.mock.perform(request(HttpMethod.GET, "/member/getAll").accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
 
         assertEquals(this.mapper.writeValueAsString(memberList), content);
@@ -75,7 +75,7 @@ public class MemberControllerIntegrationTest {
         updatedMember.setId(this.id);
 
         String result = this.mock
-                .perform(request(HttpMethod.PUT, "/update/" + this.id).accept(MediaType.APPLICATION_JSON)
+                .perform(request(HttpMethod.PUT, "/member/update/" + this.id).accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON).content(this.mapper.writeValueAsString(newMember)))
                 .andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
 

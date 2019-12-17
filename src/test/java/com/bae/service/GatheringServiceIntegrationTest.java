@@ -55,9 +55,7 @@ public class GatheringServiceIntegrationTest {
         } catch (GatheringNotFoundException e) {
             x = "Member not found exception";
         } catch (Exception e) {
-            if (!(x == "Member not found exception")) {
-                x = "error: " + e;
-            }
+            x = "error: " + e;
         }
 
         assertEquals("Member not found exception", x);

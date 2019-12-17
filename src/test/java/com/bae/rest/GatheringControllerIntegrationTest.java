@@ -41,8 +41,7 @@ public class GatheringControllerIntegrationTest {
     @Before
     public void init() {
         this.repo.deleteAll();
-        Collection<Member> members = null;
-        this.testGathering = new Gathering("Cardiff", members);
+        this.testGathering = new Gathering("Cardiff");
         this.testGatheringWithID = this.repo.save(this.testGathering);
         this.id = this.testGatheringWithID.getId();
     }
@@ -50,7 +49,7 @@ public class GatheringControllerIntegrationTest {
     @Test
     public void testAddMember() throws Exception {
         String result = this.mock
-                .perform(request(HttpMethod.POST, "/create").contentType(MediaType.APPLICATION_JSON)
+                .perform(request(HttpMethod.POST, "/gathering/create").contentType(MediaType.APPLICATION_JSON)
                         .content(this.mapper.writeValueAsString(testGathering)).accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
         assertEquals(this.mapper.writeValueAsString(testGatheringWithID), result);
@@ -58,14 +57,14 @@ public class GatheringControllerIntegrationTest {
 
     @Test
     public void testDeleteMember() throws Exception {
-        this.mock.perform(request(HttpMethod.DELETE, "/delete/" + this.id)).andExpect(status().isOk());
+        this.mock.perform(request(HttpMethod.DELETE, "/gathering/delete/" + this.id)).andExpect(status().isOk());
     }
 
     @Test
     public void testGetAllGathering() throws Exception {
         List<Gathering> gatheringList = new ArrayList<>();
         gatheringList.add(this.testGatheringWithID);
-        String content = this.mock.perform(request(HttpMethod.GET, "/getAll").accept(MediaType.APPLICATION_JSON))
+        String content = this.mock.perform(request(HttpMethod.GET, "/gathering/getAll").accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
 
         assertEquals(this.mapper.writeValueAsString(gatheringList), content);
@@ -79,7 +78,7 @@ public class GatheringControllerIntegrationTest {
         updatedGathering.setId(this.id);
 
         String result = this.mock
-                .perform(request(HttpMethod.PUT, "/update/" + this.id).accept(MediaType.APPLICATION_JSON)
+                .perform(request(HttpMethod.PUT, "/gathering/update/" + this.id).accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON).content(this.mapper.writeValueAsString(newGathering)))
                 .andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
 
