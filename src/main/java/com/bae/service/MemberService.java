@@ -33,6 +33,7 @@ public class MemberService {
         Member toUpdate = findMemberByID(id);
         toUpdate.setFirstName(member.getFirstName());
         toUpdate.setLastName(member.getLastName());
+        toUpdate.setPaidMembership(member.isPaidMembership());
         toUpdate.setHasClothes(member.isHasClothes());
         toUpdate.setGatheringOfficer(member.isGatheringOfficer());
         toUpdate.setHasGloves(member.isHasGloves());
