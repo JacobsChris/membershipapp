@@ -1,6 +1,6 @@
 package com.bae.service;
 
-import com.bae.member.exceptions.MemberNotFoundException;
+import com.bae.member.exceptions.*;
 import com.bae.persistence.domain.Member;
 import com.bae.persistence.repo.MemberRepo;
 import org.springframework.stereotype.Service;
@@ -20,6 +20,8 @@ public class MemberService {
     }
 
     public Member addNewMember(Member member) {
+        checkNameLength(member);
+
         return memberRepo.save(member);
     }
 
@@ -29,7 +31,8 @@ public class MemberService {
 
     }
 
-    public Member updateMember(Member member,Long id) {
+    public Member updateMember(Member member, Long id) {
+        checkNameLength(member);
         Member toUpdate = findMemberByID(id);
         toUpdate.setFirstName(member.getFirstName());
         toUpdate.setLastName(member.getLastName());
@@ -38,7 +41,17 @@ public class MemberService {
         toUpdate.setIsGatheringOfficer(member.isIsGatheringOfficer());
         toUpdate.setHasGloves(member.isHasGloves());
         toUpdate.setHasShoes(member.isHasShoes());
+
         return memberRepo.save(member);
+    }
+
+    private void checkNameLength(Member member) {
+        int firstNameLength = member.getFirstName().length();
+        int secondNameLength = member.getLastName().length();
+        if (firstNameLength < 2) throw new MemberFirstNameTooShortException();
+        if (secondNameLength < 2) throw new MemberSecondNameTooShortException();
+        if (firstNameLength > 25) throw new MemberFirstNameTooLongException();
+        if (secondNameLength > 25) throw new MemberSecondNameTooLongException();
     }
 
     public String deleteMember(Long id) {

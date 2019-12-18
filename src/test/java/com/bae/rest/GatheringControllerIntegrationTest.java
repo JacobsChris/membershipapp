@@ -70,6 +70,7 @@ public class GatheringControllerIntegrationTest {
         assertEquals(this.mapper.writeValueAsString(gatheringList), content);
     }
 
+
     @Test
     public void testUpdateMember() throws Exception {
         Collection<Member> members = null;
