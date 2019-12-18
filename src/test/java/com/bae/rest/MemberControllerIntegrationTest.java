@@ -71,7 +71,7 @@ public class MemberControllerIntegrationTest {
     @Test
     public void testUpdateMember() throws Exception {
         Member newMember = new Member("Katie", "Eveleigh", true, true, true, true, true);
-        Member updatedMember = newMember;
+        Member updatedMember = new Member(newMember.getFirstName(), newMember.getLastName(), newMember.isPaidMembership(), newMember.isHasGloves(), newMember.isHasShoes(), newMember.isHasClothes(), newMember.isIsGatheringOfficer());
         updatedMember.setId(this.id);
 
         String result = this.mock
