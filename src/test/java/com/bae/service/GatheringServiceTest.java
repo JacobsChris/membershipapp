@@ -68,7 +68,7 @@ public class GatheringServiceTest {
         when(this.repo.save(updatedGathering)).thenReturn(updatedGathering);
         assertEquals(updatedGathering, this.service.updateGathering(newGathering, this.id));
         verify(this.repo, times(1)).findById(this.id);
-        verify(this.repo, times(2)).save(updatedGathering);
+        verify(this.repo, times(1)).save(updatedGathering);
 
     }
 

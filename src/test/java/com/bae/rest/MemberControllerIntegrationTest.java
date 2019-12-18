@@ -71,12 +71,14 @@ public class MemberControllerIntegrationTest {
     @Test
     public void testUpdateMember() throws Exception {
         Member newMember = new Member("Katie", "Eveleigh", true, true, true, true, true);
-        Member updatedMember = new Member(newMember.getFirstName(), newMember.getLastName(), newMember.isPaidMembership(), newMember.isHasGloves(), newMember.isHasShoes(), newMember.isHasClothes(), newMember.isIsGatheringOfficer());
+        Member updatedMember = new Member(newMember.getFirstName(), newMember.getLastName(), false, newMember.isHasGloves(), newMember.isHasShoes(), newMember.isHasClothes(), newMember.isIsGatheringOfficer());
+
         updatedMember.setId(this.id);
 
         String result = this.mock
                 .perform(request(HttpMethod.PUT, "/member/update/" + this.id).accept(MediaType.APPLICATION_JSON)
-                        .contentType(MediaType.APPLICATION_JSON).content(this.mapper.writeValueAsString(newMember)))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(this.mapper.writeValueAsString(updatedMember)))
                 .andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
 
         assertEquals(this.mapper.writeValueAsString(updatedMember), result);

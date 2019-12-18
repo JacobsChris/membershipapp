@@ -17,6 +17,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -38,12 +39,17 @@ public class GatheringControllerIntegrationTest {
     private Gathering testGathering;
     private Gathering testGatheringWithID;
 
+
     @Before
     public void init() {
         this.repo.deleteAll();
         this.testGathering = new Gathering("Cardiff");
+        Collection<Member> memdude = Collections.EMPTY_LIST;
+        this.testGathering.setMembers(memdude);
         this.testGatheringWithID = this.repo.save(this.testGathering);
         this.id = this.testGatheringWithID.getId();
+
+
     }
 
     @Test
@@ -64,8 +70,14 @@ public class GatheringControllerIntegrationTest {
     public void testGetAllGathering() throws Exception {
         List<Gathering> gatheringList = new ArrayList<>();
         gatheringList.add(this.testGatheringWithID);
-        String content = this.mock.perform(request(HttpMethod.GET, "/gathering/getAll").accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
+        String content = this.mock.perform(
+                request(HttpMethod.GET, "/gathering/getAll")
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andReturn()
+                .getResponse()
+                .getContentAsString();
+
 
         assertEquals(this.mapper.writeValueAsString(gatheringList), content);
     }
@@ -73,16 +85,13 @@ public class GatheringControllerIntegrationTest {
 
     @Test
     public void testUpdateMember() throws Exception {
-        Collection<Member> members = null;
-        Gathering newGathering = new Gathering("Cardiff", members);
-        Gathering updatedGathering = newGathering;
-        updatedGathering.setId(this.id);
+        Gathering updatedGathering = testGathering;
+        updatedGathering.setId(this.id);//1L
 
         String result = this.mock
                 .perform(request(HttpMethod.PUT, "/gathering/update/" + this.id).accept(MediaType.APPLICATION_JSON)
-                        .contentType(MediaType.APPLICATION_JSON).content(this.mapper.writeValueAsString(newGathering)))
+                        .contentType(MediaType.APPLICATION_JSON).content(this.mapper.writeValueAsString(updatedGathering)))
                 .andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
-
         assertEquals(this.mapper.writeValueAsString(updatedGathering), result);
 
     }

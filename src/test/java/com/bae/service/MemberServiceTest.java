@@ -72,7 +72,7 @@ public class MemberServiceTest {
     @Test
     public void updateMembersTest() {
         Member newMember = new Member("Katie", "Eveleigh", true, true, true, true, true);
-        Member updatedMember = new Member(newMember.getFirstName(), newMember.getLastName(), newMember.isPaidMembership(), newMember.isHasGloves(), newMember.isHasShoes(), newMember.isHasClothes(), newMember.isIsGatheringOfficer());
+        Member updatedMember = newMember;//(newMember.getFirstName(), newMember.getLastName(), newMember.isPaidMembership(), newMember.isHasGloves(), newMember.isHasShoes(), newMember.isHasClothes(), newMember.isIsGatheringOfficer());
         updatedMember.setId(this.id);
 
         when(this.repo.findById(this.id)).thenReturn(Optional.of(this.testMemberWithID));

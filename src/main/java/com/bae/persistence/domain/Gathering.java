@@ -27,6 +27,7 @@ public class Gathering {
     public Gathering(String location, Collection<Member> members) {
         this.location = location;
         this.members = members;
+
     }
 
     public long getId() {
@@ -69,6 +70,7 @@ public class Gathering {
 
     @Override
     public String toString() {
+
         return "Gathering{" +
                 "id=" + id +
                 ", location='" + location + '\'' +

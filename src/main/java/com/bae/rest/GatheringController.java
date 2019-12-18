@@ -27,9 +27,9 @@ public class GatheringController {
         return gatheringService.addNewGathering(gathering);
     }
 
-    @PutMapping("/update")
-    public Gathering updateGathering(@RequestBody Gathering gathering, long id) {
-        return gatheringService.updateGathering(gathering, id);
+    @PutMapping("/update/{gatheringId}")
+    public Gathering updateGathering(@RequestBody Gathering gathering, @PathVariable long gatheringId) {
+        return gatheringService.updateGathering(gathering, gatheringId);
     }
 
     @DeleteMapping("/delete/{id}")
