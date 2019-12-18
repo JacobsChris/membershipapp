@@ -39,6 +39,6 @@ public class GatheringService {
 
     public Gathering findGatheringByID(long id) {
         return this.gatheringRepo.findById(id).orElseThrow((
-                () -> new GatheringNotFoundException()));
+                GatheringNotFoundException::new));
     }
 }

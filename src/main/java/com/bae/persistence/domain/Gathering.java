@@ -59,8 +59,7 @@ public class Gathering {
         if (o == null || getClass() != o.getClass()) return false;
         Gathering gathering = (Gathering) o;
         return getId() == gathering.getId() &&
-                getLocation().equals(gathering.getLocation());//&&
-        //getMembers().equals(gathering.getMembers());
+                getLocation().equals(gathering.getLocation());
     }
 
     @Override

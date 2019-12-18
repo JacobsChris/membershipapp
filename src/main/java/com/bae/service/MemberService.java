@@ -25,7 +25,7 @@ public class MemberService {
 
     public Member findMemberByID(Long id) {
         return this.memberRepo.findById(id).orElseThrow(
-                () -> new MemberNotFoundException());
+                MemberNotFoundException::new);
 
     }
 
