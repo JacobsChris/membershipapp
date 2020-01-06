@@ -32,9 +32,8 @@ public class MemberControllerTest {
     @Before
     public void init() {
         this.memberList = new ArrayList<>();
-//        this.testMember.setId(id);
         this.testMember = new Member("Katie", "Eveleigh", true, true, true, true, true);
-        this.testMemberWithID = new Member(testMember.getFirstName(), testMember.getLastName(), testMember.isPaidMembership(), testMember.isHasGloves(), testMember.isHasShoes(), testMember.isHasClothes(), testMember.isGatheringOfficer());
+        this.testMemberWithID = new Member(testMember.getFirstName(), testMember.getLastName(), testMember.isPaidMembership(), testMember.isHasGloves(), testMember.isHasShoes(), testMember.isHasClothes(), testMember.isIsGatheringOfficer());
         this.testMemberWithID.setId(id);
         this.memberList.add(testMember);
 
@@ -67,7 +66,7 @@ public class MemberControllerTest {
     @Test
     public void updateMemberTest() {
         Member newMember = new Member("Katherine", "Eveleigh", true, true, true, true, true);
-        Member updatedMember = new Member(newMember.getFirstName(), newMember.getLastName(), newMember.isPaidMembership(), newMember.isHasGloves(), newMember.isHasShoes(), newMember.isHasClothes(), newMember.isGatheringOfficer());
+        Member updatedMember = new Member(newMember.getFirstName(), newMember.getLastName(), newMember.isPaidMembership(), newMember.isHasGloves(), newMember.isHasShoes(), newMember.isHasClothes(), newMember.isIsGatheringOfficer());
         updatedMember.setId(this.id);
 
         when(this.service.updateMember(newMember, this.id)).thenReturn((updatedMember));

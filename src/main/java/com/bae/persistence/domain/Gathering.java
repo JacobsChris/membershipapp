@@ -8,6 +8,7 @@ import java.util.Objects;
 @Table(name = "GroupList")
 public class Gathering {
 
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -16,9 +17,17 @@ public class Gathering {
     @OneToMany(mappedBy = "gatheringID")
     private Collection<Member> members;
 
-
-
     public Gathering() {
+    }
+
+    public Gathering(String location) {
+        this.location = location;
+    }
+
+    public Gathering(String location, Collection<Member> members) {
+        this.location = location;
+        this.members = members;
+
     }
 
     public long getId() {
@@ -37,6 +46,13 @@ public class Gathering {
         this.location = location;
     }
 
+    public Collection<Member> getMembers() {
+        return this.members;
+    }
+
+    public void setMembers(Collection<Member> members) {
+        this.members = members;
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -49,20 +65,16 @@ public class Gathering {
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getLocation());
+        return Objects.hash(getId(), getLocation(), getMembers());
     }
 
     @Override
     public String toString() {
-        return "Group{" +
+
+        return "Gathering{" +
                 "id=" + id +
                 ", location='" + location + '\'' +
+                ", members=" + members +
                 '}';
     }
-
-
-
-
 }
-
-

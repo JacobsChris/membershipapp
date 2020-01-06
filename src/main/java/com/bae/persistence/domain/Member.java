@@ -13,8 +13,9 @@ public class Member {
     private String lastName;
 
     @ManyToOne
-    @JoinColumn(name="members")
+    @JoinColumn(name = "members")
     private Gathering gatheringID;
+
 
     private boolean paidMembership;
     private boolean hasGloves;
@@ -28,6 +29,19 @@ public class Member {
     public Member(String firstName, String lastName, boolean paidMembership, boolean hasGloves, boolean hasShoes, boolean hasClothes, boolean isGatheringOfficer) {
         this.firstName = firstName;
         this.lastName = lastName;
+        this.gatheringID = gatheringID;
+        this.paidMembership = paidMembership;
+        this.hasGloves = hasGloves;
+        this.hasShoes = hasShoes;
+        this.hasClothes = hasClothes;
+        this.isGatheringOfficer = isGatheringOfficer;
+    }
+
+
+    public Member(String firstName, String lastName, Gathering gatheringID, boolean paidMembership, boolean hasGloves, boolean hasShoes, boolean hasClothes, boolean isGatheringOfficer) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.gatheringID = gatheringID;
         this.paidMembership = paidMembership;
         this.hasGloves = hasGloves;
         this.hasShoes = hasShoes;
@@ -91,13 +105,20 @@ public class Member {
         this.hasClothes = hasClothes;
     }
 
+    public Gathering getGatheringID() {
+        return gatheringID;
+    }
 
-    public boolean isGatheringOfficer() {
+    public void setGatheringID(Gathering gatheringID) {
+        this.gatheringID = gatheringID;
+    }
+
+    public boolean isIsGatheringOfficer() {
         return isGatheringOfficer;
     }
 
-    public void setGatheringOfficer(boolean gatheringOfficer) {
-        isGatheringOfficer = gatheringOfficer;
+    public void setIsGatheringOfficer(boolean isGatheringOfficer) {
+        this.isGatheringOfficer = isGatheringOfficer;
     }
 
     @Override
