@@ -35,7 +35,7 @@ public class GatheringControllerTest {
     public void init() {
         this.gatheringList = new ArrayList<>();
         this.gatheringList.add(testGathering);
-        this.testGathering = new Gathering("Cardiff", members);
+        this.testGathering = new Gathering("Cardiff");
         this.testGatheringWithID = new Gathering(testGathering.getLocation(), testGathering.getMembers());
         this.testGatheringWithID.setId(id);
     }
@@ -74,7 +74,7 @@ public class GatheringControllerTest {
 
     @Test
     public void updateGatheringTest() {
-        Gathering newGathering = new Gathering("Manchester", members);
+        Gathering newGathering = new Gathering("Manchester");
         Gathering updatedGathering = new Gathering(newGathering.getLocation(), newGathering.getMembers());
         updatedGathering.setId(this.id);
 

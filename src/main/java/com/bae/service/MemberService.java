@@ -10,19 +10,29 @@ import java.util.List;
 @Service
 public class MemberService {
     private MemberRepo memberRepo;
+    private GatheringService gatheringService;
 
-    public MemberService(MemberRepo memberRepo) {
+    public MemberService(MemberRepo memberRepo, GatheringService gatheringService) {
         this.memberRepo = memberRepo;
+        this.gatheringService = gatheringService;
     }
 
     public List<Member> getAllMember() {
         return memberRepo.findAll();
     }
 
+
     public Member addNewMember(Member member) {
         checkNameLength(member);
-
         return memberRepo.save(member);
+    }
+
+    public Member addNewMember(Member member, long id) {
+        checkNameLength(member);
+        memberRepo.save(member);
+        gatheringService.addMember(member, id);
+
+        return null;
     }
 
     public Member findMemberByID(Long id) {
@@ -30,6 +40,7 @@ public class MemberService {
                 MemberNotFoundException::new);
 
     }
+
 
     public Member updateMember(Member member, Long id) {
         checkNameLength(member);

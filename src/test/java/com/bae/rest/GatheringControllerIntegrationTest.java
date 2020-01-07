@@ -4,6 +4,7 @@ import com.bae.persistence.domain.Gathering;
 import com.bae.persistence.domain.Member;
 import com.bae.persistence.repo.GatheringRepo;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.assertj.core.util.Lists;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -16,8 +17,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -44,7 +43,7 @@ public class GatheringControllerIntegrationTest {
     public void init() {
         this.repo.deleteAll();
         this.testGathering = new Gathering("Cardiff");
-        Collection<Member> memdude = Collections.EMPTY_LIST;
+        List<Member> memdude = Lists.emptyList();
         this.testGathering.setMembers(memdude);
         this.testGatheringWithID = this.repo.save(this.testGathering);
         this.id = this.testGatheringWithID.getId();

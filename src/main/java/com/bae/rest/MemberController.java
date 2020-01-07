@@ -30,6 +30,11 @@ public class MemberController {
         return memberService.addNewMember(member);
     }
 
+    @PostMapping("/create/{id}")
+    public Member addNewMember(@RequestBody Member member, @PathVariable Long id) {
+        return memberService.addNewMember(member, id);
+    }
+
     @PutMapping("/update/{memberId}")
     public Member updateMember(@PathVariable("memberId") Long id, @RequestBody Member member) {
         return this.memberService.updateMember(member, id);

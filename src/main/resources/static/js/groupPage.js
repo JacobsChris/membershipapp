@@ -6,8 +6,8 @@ function makeGroupTable() {
     var table = new Tabulator("#groupTable", {
         layout: "fitColumns",
         ajaxURL: "http://localhost:8080/gathering/getAll",
-        rowClick: function (row) {
-            makeMemberTable()
+        rowClick: function (e, row) {
+            makeMemberTable(row._row.data.id)
         },
         columns: [
             {title: "ID", field: "id"},
@@ -19,19 +19,20 @@ function makeGroupTable() {
     createElementWithID("div", "memberTable");
 }
 
-function makeMemberTable() {
+function makeMemberTable(id) {
 
     var table = new Tabulator("#memberTable", {
         layout: "fitColumns",
-        ajaxURL: "http://localhost:8080/member/getAll",
+        ajaxURL: "http://localhost:8080/gathering/getMembers/1",
+
         columns: [
-            {title: "First Name", field: "first_name"},
-            {title: "Second Name", field: "last_name"},
-            {title: "Membership", field: "paid_membership"},
-            {title: "Gloves", field: "has_gloves"},
-            {title: "Shoes", field: "has_shoes"},
-            {title: "Clothes", field: "has_clothes"},
-            {title: "Officer", field: "is_gathering_officer"},
+            {title: "First Name", field: "firstName"},
+            {title: "Second Name", field: "lastName"},
+            {title: "Membership", field: "paidMembership"},
+            {title: "Gloves", field: "hasGloves"},
+            {title: "Shoes", field: "hasShoes"},
+            {title: "Clothes", field: "hasClothes"},
+            {title: "Officer", field: "isGatheringOfficer"},
 
         ],
     });

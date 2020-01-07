@@ -6,6 +6,7 @@ import com.bae.gathering.exceptions.LocationTooShortException;
 import com.bae.member.exceptions.MemberFirstNameTooLongException;
 import com.bae.member.exceptions.MemberFirstNameTooShortException;
 import com.bae.persistence.domain.Gathering;
+import com.bae.persistence.domain.Member;
 import com.bae.persistence.repo.GatheringRepo;
 import org.springframework.stereotype.Service;
 
@@ -55,5 +56,15 @@ public class GatheringService {
     public Gathering findGatheringByID(long id) {
         return this.gatheringRepo.findById(id).orElseThrow((
                 GatheringNotFoundException::new));
+    }
+
+    public List<Member> getMembers(Long id) {
+        return this.gatheringRepo.findById(id).orElseThrow(GatheringNotFoundException::new).getMembers();
+    }
+
+    public void addMember(Member member, long id) {
+        Gathering g = this.findGatheringByID(id);
+        g.getMembers().add(member);
+        this.gatheringRepo.save(g);
     }
 }

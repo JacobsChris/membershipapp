@@ -76,7 +76,7 @@ public class GatheringServiceIntegrationTest {
     @Test
     public void testUpdateGathering() {
         Collection<Member> members = null;
-        Gathering newGathering = new Gathering("Cardiff", members);
+        Gathering newGathering = new Gathering("Cardiff");
         Gathering updatedGathering = new Gathering(newGathering.getLocation(), newGathering.getMembers());
         updatedGathering.setId(this.testGatheringWithID.getId());
         assertThat(this.service.updateGathering(newGathering, this.testGatheringWithID.getId())).isEqualTo(updatedGathering);

@@ -1,7 +1,7 @@
 package com.bae.persistence.domain;
 
 import javax.persistence.*;
-import java.util.Collection;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -14,8 +14,9 @@ public class Gathering {
     private long id;
     private String location;
 
-    @OneToMany(mappedBy = "gatheringID")
-    private Collection<Member> members;
+    @OneToMany
+    @JoinColumn(name = "gath_id")
+    private List<Member> members;
 
     public Gathering() {
     }
@@ -24,7 +25,7 @@ public class Gathering {
         this.location = location;
     }
 
-    public Gathering(String location, Collection<Member> members) {
+    public Gathering(String location, List<Member> members) {
         this.location = location;
         this.members = members;
 
@@ -46,11 +47,11 @@ public class Gathering {
         this.location = location;
     }
 
-    public Collection<Member> getMembers() {
+    public List<Member> getMembers() {
         return this.members;
     }
 
-    public void setMembers(Collection<Member> members) {
+    public void setMembers(List<Member> members) {
         this.members = members;
     }
 

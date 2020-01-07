@@ -37,7 +37,7 @@ public class GatheringServiceTest {
     public void init() {
         this.gatheringList = new ArrayList<>();
         this.gatheringList.add(testGathering);
-        this.testGathering = new Gathering("Cardiff", members);
+        this.testGathering = new Gathering("Cardiff");
         this.testGatheringWithID = new Gathering(testGathering.getLocation(), testGathering.getMembers());
         this.testGatheringWithID.setId(id);
     }
@@ -61,7 +61,7 @@ public class GatheringServiceTest {
 
     @Test
     public void updateGathering() {
-        Gathering newGathering = new Gathering("Cardiff", members);
+        Gathering newGathering = new Gathering("Cardiff");
         Gathering updatedGathering = new Gathering(newGathering.getLocation(), newGathering.getMembers());
         updatedGathering.setId(this.id);
         when(this.repo.findById(this.id)).thenReturn(Optional.of(this.testGatheringWithID));

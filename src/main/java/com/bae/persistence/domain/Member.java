@@ -1,6 +1,9 @@
 package com.bae.persistence.domain;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.util.Objects;
 
 @Entity
@@ -11,12 +14,6 @@ public class Member {
     private long id;
     private String firstName;
     private String lastName;
-
-    @ManyToOne
-    @JoinColumn(name = "members")
-    private Gathering gatheringID;
-
-
     private boolean paidMembership;
     private boolean hasGloves;
     private boolean hasShoes;
@@ -29,7 +26,6 @@ public class Member {
     public Member(String firstName, String lastName, boolean paidMembership, boolean hasGloves, boolean hasShoes, boolean hasClothes, boolean isGatheringOfficer) {
         this.firstName = firstName;
         this.lastName = lastName;
-        this.gatheringID = gatheringID;
         this.paidMembership = paidMembership;
         this.hasGloves = hasGloves;
         this.hasShoes = hasShoes;
@@ -38,16 +34,16 @@ public class Member {
     }
 
 
-    public Member(String firstName, String lastName, Gathering gatheringID, boolean paidMembership, boolean hasGloves, boolean hasShoes, boolean hasClothes, boolean isGatheringOfficer) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.gatheringID = gatheringID;
-        this.paidMembership = paidMembership;
-        this.hasGloves = hasGloves;
-        this.hasShoes = hasShoes;
-        this.hasClothes = hasClothes;
-        this.isGatheringOfficer = isGatheringOfficer;
-    }
+//    public Member(String firstName, String lastName, Gathering gatheringID, boolean paidMembership, boolean hasGloves, boolean hasShoes, boolean hasClothes, boolean isGatheringOfficer) {
+//        this.firstName = firstName;
+//        this.lastName = lastName;
+//        this.gatheringID = gatheringID;
+//        this.paidMembership = paidMembership;
+//        this.hasGloves = hasGloves;
+//        this.hasShoes = hasShoes;
+//        this.hasClothes = hasClothes;
+//        this.isGatheringOfficer = isGatheringOfficer;
+//    }
 
     public long getId() {
         return id;
@@ -105,14 +101,6 @@ public class Member {
         this.hasClothes = hasClothes;
     }
 
-    public Gathering getGatheringID() {
-        return gatheringID;
-    }
-
-    public void setGatheringID(Gathering gatheringID) {
-        this.gatheringID = gatheringID;
-    }
-
     public boolean isIsGatheringOfficer() {
         return isGatheringOfficer;
     }
@@ -127,7 +115,6 @@ public class Member {
                 "id=" + id +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
-                ", groupID=" + gatheringID +
                 ", paidMembership=" + paidMembership +
                 ", hasGloves=" + hasGloves +
                 ", hasShoes=" + hasShoes +

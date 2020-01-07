@@ -1,6 +1,7 @@
 package com.bae.rest;
 
 import com.bae.persistence.domain.Gathering;
+import com.bae.persistence.domain.Member;
 import com.bae.service.GatheringService;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,9 +33,15 @@ public class GatheringController {
         return gatheringService.updateGathering(gathering, gatheringId);
     }
 
+    @GetMapping("/getMembers/{id}")
+    public List<Member> getMembers(@PathVariable Long id) {
+        return gatheringService.getMembers(id);
+    }
+
     @DeleteMapping("/delete/{id}")
-    public String deleteGathering(@PathVariable(value = "id") Long id) {
+    public String deleteGathering(@PathVariable Long id) {
         return gatheringService.deleteGathering(id);
     }
 }
+
 
