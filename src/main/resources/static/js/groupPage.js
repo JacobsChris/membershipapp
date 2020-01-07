@@ -2,6 +2,7 @@ document.addEventListener("DOMContentLoaded", function () {
     makeGroupTable();
 });
 
+
 function makeGroupTable() {
     var groupTable = new Tabulator("#groupTable", {
         layout: "fitColumns",
@@ -19,6 +20,29 @@ function makeGroupTable() {
     createElementWithID("div", "memberTable");
 }
 
+function submitDataChanges(memberTable, initialData) {
+    let finalData = memberTable.getData();
+    console.log(initialData);
+    console.log(finalData);
+    for (let i = 0; i < finalData.length; i++) {
+        if (finalData[i] !== initialData[i]) {
+            let id = finalData[i][0];
+            let data = finalData[i];
+            console.log(data);
+            $.ajax({
+                url: "http://localhost:8080/member/update/" + id,
+                data: JSON.stringify(data),
+                dataType: "json",
+                async: false,
+                success: function (msg) {
+                    alert(msg)
+                }
+            })
+        }
+    }
+
+}
+
 function makeMemberTable(id) {
 
     var memberTable = new Tabulator("#memberTable", {
@@ -26,26 +50,35 @@ function makeMemberTable(id) {
         ajaxURL: "http://localhost:8080/gathering/getMembers/" + id,
 
         columns: [
-            {title: "First Name", field: "firstName"},
-            {title: "Second Name", field: "lastName"},
-            {title: "Membership", field: "paidMembership"},
-            {title: "Gloves", field: "hasGloves"},
-            {title: "Shoes", field: "hasShoes"},
-            {title: "Clothes", field: "hasClothes"},
-            {title: "Officer", field: "isGatheringOfficer"},
+            {title: "First Name", field: "firstName", editor: "input"},
+            {title: "Second Name", field: "lastName", editor: "input"},
+            {title: "Gloves", field: "hasGloves", formatter: "tickCross", editor: "tickCross"},
+            {title: "Membership", field: "paidMembership", formatter: "tickCross", editor: "tickCross"},
+            {title: "Shoes", field: "hasShoes", formatter: "tickCross", editor: "tickCross"},
+            {title: "Clothes", field: "hasClothes", formatter: "tickCross", editor: "tickCross"},
+            {title: "Officer", field: "isGatheringOfficer", formatter: "tickCross", editor: "tickCross"},
 
         ],
     });
     removeElement("groupTable");
     createElementWithID("div", "groupTable");
 
+    var initialData = memberTable.getData();
+
 
     let goBackButton = document.createElement("button");
     goBackButton.innerHTML = "Go back to Groups";
-    let body = document.getElementById("groupTable");
-    body.appendChild(goBackButton);
+    let table = document.getElementById("groupTable");
+    table.appendChild(goBackButton);
     goBackButton.addEventListener("click", function () {
         makeGroupTable();
+    });
+
+    let submitButton = document.createElement("button");
+    submitButton.innerHTML = "Confirm changes";
+    table.appendChild(submitButton);
+    submitButton.addEventListener("click", function () {
+        submitDataChanges(memberTable, initialData);
     });
 
 }
@@ -67,10 +100,10 @@ function createElementWithID(elementTag, elementId) {
 TODO add member functionality: should just be add button and then form
 
 TODO edit member functionality:
-   click on member to edit data
    retrieve edited data with tabulator
    compare edit with initial data
    post update
 
 TODO delete member functionality: might just be a button and then type form
  */
+
