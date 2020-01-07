@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 function makeGroupTable() {
-    var table = new Tabulator("#groupTable", {
+    var groupTable = new Tabulator("#groupTable", {
         layout: "fitColumns",
         ajaxURL: "http://localhost:8080/gathering/getAll",
         rowClick: function (e, row) {
@@ -21,9 +21,9 @@ function makeGroupTable() {
 
 function makeMemberTable(id) {
 
-    var table = new Tabulator("#memberTable", {
+    var memberTable = new Tabulator("#memberTable", {
         layout: "fitColumns",
-        ajaxURL: "http://localhost:8080/gathering/getMembers/1",
+        ajaxURL: "http://localhost:8080/gathering/getMembers/" + id,
 
         columns: [
             {title: "First Name", field: "firstName"},
@@ -63,3 +63,14 @@ function createElementWithID(elementTag, elementId) {
 
 }
 
+/*
+TODO add member functionality: should just be add button and then form
+
+TODO edit member functionality:
+   click on member to edit data
+   retrieve edited data with tabulator
+   compare edit with initial data
+   post update
+
+TODO delete member functionality: might just be a button and then type form
+ */
