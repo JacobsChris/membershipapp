@@ -20,42 +20,11 @@ function makeGroupTable() {
     createElementWithID("div", "memberTable");
 }
 
-function submitDataChanges(data) {
-    console.log(data);
-    console.log(data.length);
-    for (let i = 0; i < data.length; i++) {
-        console.log(data[i]);
-        let data2 = data[i];
-        console.log(data2["id"]);
-        let data3 = data2.remote("id");
-        console.log(data3)
-        //This hopefully is the ID and the JSON to send to the URL
-        //WOO
-
-
-    }
-    /*
-    var array = table.getData();
-    var json = JSON.stringify(array);
-
-    retrieves all data int able and then makes a JSON of it.
-
-    could use row.getData if I can find the row ID to use
-
-    need to access member ID from this and then PUT request the rest
-
-     */
-    /*
-    see below about dataEdited callback in table
-     */
-}
 
 function makeMemberTable(id) {
 
     var memberTable = new Tabulator("#memberTable", {
         dataEdited: function (data) {
-            console.log("changed data is ");
-            console.log(data);
             //data - the updated table data
             submitDataChanges(data)
         },
@@ -87,13 +56,33 @@ function makeMemberTable(id) {
         makeGroupTable();
     });
 
-    // let submitButton = document.createElement("button");
-    // submitButton.innerHTML = "Confirm changes";
-    // table.appendChild(submitButton);
-    // submitButton.addEventListener("click", function () {
-    //     submitDataChanges(memberTable, initialData);
-    // });
 
+}
+
+function submitDataChanges(data) {
+    for (let i = 0; i < data.length; i++) {
+        let memberData = data[i];
+
+        if (MemberHasID)
+        {
+            let memberID = memberData["id"];
+            let memberJSON = memberData;
+            delete memberJSON.id;
+            memberJSON = JSON.stringify(memberJSON);
+
+            $.ajax({
+                url: "http://localhost:8080/member/update/" + memberID,
+                type: "PUT",
+                data: memberJSON,
+                contentType: "application/json"
+            }).then(r => function () {
+                alert("Member updated!")
+            })
+        }
+        else{
+            send post request of member
+        }
+    }
 }
 
 function removeElement(elementId) {
@@ -111,11 +100,6 @@ function createElementWithID(elementTag, elementId) {
 
 /*
 TODO add member functionality: should just be add button and then form
-
-TODO edit member functionality:
-   retrieve edited data with tabulator
-   compare edit with initial data
-   post update
 
 TODO delete member functionality: might just be a button and then type form
  */

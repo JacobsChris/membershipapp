@@ -53,7 +53,7 @@ public class MemberService {
         toUpdate.setHasGloves(member.isHasGloves());
         toUpdate.setHasShoes(member.isHasShoes());
 
-        return memberRepo.save(member);
+        return memberRepo.save(toUpdate);
     }
 
     private void checkNameLength(Member member) {
