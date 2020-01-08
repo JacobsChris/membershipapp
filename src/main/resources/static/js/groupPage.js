@@ -29,6 +29,8 @@ function submitDataChanges(data) {
         console.log(data2["id"]);
         let data3 = data2.remote("id");
         console.log(data3)
+        //This hopefully is the ID and the JSON to send to the URL
+        //WOO
 
 
     }
