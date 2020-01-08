@@ -22,25 +22,20 @@ function makeGroupTable() {
 
 function submitDataChanges(memberTable, initialData) {
     let finalData = memberTable.getData();
-    console.log(initialData);
-    console.log(finalData);
-    for (let i = 0; i < finalData.length; i++) {
-        if (finalData[i] !== initialData[i]) {
-            let id = finalData[i][0];
-            let data = finalData[i];
-            console.log(data);
-            $.ajax({
-                url: "http://localhost:8080/member/update/" + id,
-                data: JSON.stringify(data),
-                dataType: "json",
-                async: false,
-                success: function (msg) {
-                    alert(msg)
-                }
-            })
-        }
-    }
+    console.log("initialData is " + initialData);
+    console.log("final data is " + finalData);
+    memberTable.download("json", data)
+    /*
+    var array = table.getData();
+    var json = JSON.stringify(array);
 
+    retrieves all data int able and then makes a JSON of it.
+
+    could use row.getData if I can find the row ID to use
+
+    need to access member ID from this and then PUT request the rest
+
+     */
 }
 
 function makeMemberTable(id) {
