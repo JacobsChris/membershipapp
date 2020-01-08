@@ -20,11 +20,12 @@ function makeGroupTable() {
     createElementWithID("div", "memberTable");
 }
 
-function submitDataChanges(memberTable, initialData) {
-    let finalData = memberTable.getData();
-    console.log("initialData is " + initialData);
-    console.log("final data is " + finalData);
-    memberTable.download("json", data)
+function submitDataChanges(data) {
+    console.log(data);
+    console.log(data.length);
+    for (let i = 0; i < data.length; i++) {
+
+    }
     /*
     var array = table.getData();
     var json = JSON.stringify(array);
@@ -36,11 +37,20 @@ function submitDataChanges(memberTable, initialData) {
     need to access member ID from this and then PUT request the rest
 
      */
+    /*
+    see below about dataEdited callback in table
+     */
 }
 
 function makeMemberTable(id) {
 
     var memberTable = new Tabulator("#memberTable", {
+        dataEdited: function (data) {
+            console.log("changed data is ");
+            console.log(data);
+            //data - the updated table data
+            submitDataChanges(data)
+        },
         layout: "fitColumns",
         ajaxURL: "http://localhost:8080/gathering/getMembers/" + id,
 
@@ -69,12 +79,12 @@ function makeMemberTable(id) {
         makeGroupTable();
     });
 
-    let submitButton = document.createElement("button");
-    submitButton.innerHTML = "Confirm changes";
-    table.appendChild(submitButton);
-    submitButton.addEventListener("click", function () {
-        submitDataChanges(memberTable, initialData);
-    });
+    // let submitButton = document.createElement("button");
+    // submitButton.innerHTML = "Confirm changes";
+    // table.appendChild(submitButton);
+    // submitButton.addEventListener("click", function () {
+    //     submitDataChanges(memberTable, initialData);
+    // });
 
 }
 
