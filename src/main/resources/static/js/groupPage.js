@@ -24,6 +24,12 @@ function submitDataChanges(data) {
     console.log(data);
     console.log(data.length);
     for (let i = 0; i < data.length; i++) {
+        console.log(data[i]);
+        let data2 = data[i];
+        console.log(data2["id"]);
+        let data3 = data2.remote("id");
+        console.log(data3)
+
 
     }
     /*
