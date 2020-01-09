@@ -8,7 +8,8 @@ function makeGroupTable() {
         layout: "fitColumns",
         ajaxURL: "http://localhost:8080/gathering/getAll",
         rowClick: function (e, row) {
-            makeMemberTable(row._row.data.id)
+            makeMemberTable(row._row.data.id);
+            var currentGroupID = row._row.data.id;
         },
         columns: [
             {title: "ID", field: "id"},
@@ -21,15 +22,15 @@ function makeGroupTable() {
 }
 
 
-function makeMemberTable(id) {
+function makeMemberTable(currentGroupID) {
 
     var memberTable = new Tabulator("#memberTable", {
         dataEdited: function (data) {
             //data - the updated table data
-            submitDataChanges(data)
+            submitDataChanges(data, currentGroupID)
         },
         layout: "fitColumns",
-        ajaxURL: "http://localhost:8080/gathering/getMembers/" + id,
+        ajaxURL: "http://localhost:8080/gathering/getMembers/" + currentGroupID,
 
         columns: [
             {title: "First Name", field: "firstName", editor: "input"},
@@ -47,24 +48,31 @@ function makeMemberTable(id) {
 
     var initialData = memberTable.getData();
 
+    let table = document.getElementById("groupTable");
+
 
     let goBackButton = document.createElement("button");
     goBackButton.innerHTML = "Go back to Groups";
-    let table = document.getElementById("groupTable");
     table.appendChild(goBackButton);
     goBackButton.addEventListener("click", function () {
         makeGroupTable();
     });
 
+    let addMemberButton = document.createElement("button");
+    addMemberButton.innerHTML = "add new member";
+    table.appendChild(addMemberButton);
+    addMemberButton.addEventListener("click", function () {
+        memberTable.addRow({firstName: "First name here", lastName: "Second name here"}, false);
+    })
+
 
 }
 
-function submitDataChanges(data) {
+function submitDataChanges(data, currentGroupID) {
     for (let i = 0; i < data.length; i++) {
         let memberData = data[i];
 
-        if (MemberHasID)
-        {
+        if (memberData.hasOwnProperty("id")) {
             let memberID = memberData["id"];
             let memberJSON = memberData;
             delete memberJSON.id;
@@ -78,9 +86,21 @@ function submitDataChanges(data) {
             }).then(r => function () {
                 alert("Member updated!")
             })
-        }
-        else{
-            send post request of member
+        } else {
+            let memberJSON = JSON.stringify(memberData);
+            console.log(memberData);
+            console.log(currentGroupID);
+            console.log(memberJSON);
+
+            $.ajax({
+                url: "http://localhost:8080/member/create/" + currentGroupID,
+                type: "POST",
+                data: memberJSON,
+                contentType: "application/json"
+            }).then(r => function () {
+                alert("Member created!")
+            })
+
         }
     }
 }
@@ -97,6 +117,7 @@ function createElementWithID(elementTag, elementId) {
     body.appendChild(groupTable)
 
 }
+
 
 /*
 TODO add member functionality: should just be add button and then form
