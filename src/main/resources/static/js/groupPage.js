@@ -22,6 +22,7 @@ function makeGroupTable() {
 }
 
 
+
 function makeMemberTable(currentGroupID) {
 
     var memberTable = new Tabulator("#memberTable", {
@@ -65,6 +66,12 @@ function makeMemberTable(currentGroupID) {
         memberTable.addRow({firstName: "First name here", lastName: "Second name here"}, false);
     })
 
+    let deleteMemberButton = document.createElement("button");
+    deleteMemberButton.innerHTML = "Delete member";
+    table.appendChild(deleteMemberButton);
+    deleteMemberButton.addEventListener("click", function () {
+        deleteMember();
+    });
 
 }
 
@@ -104,6 +111,11 @@ function submitDataChanges(data, currentGroupID) {
         }
     }
 }
+
+function deleteMember() {
+
+}
+
 
 function removeElement(elementId) {
     let element = document.getElementById(elementId);
