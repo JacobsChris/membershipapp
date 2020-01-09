@@ -1,24 +1,29 @@
 document.addEventListener("DOMContentLoaded", function () {
     makeGroupTable();
+    // let tableHeading = document.getElementById("tableHeading");
 });
 
 
 function makeGroupTable() {
+    document.getElementById("tableHeading").innerHTML = "Groups";
+
     var groupTable = new Tabulator("#groupTable", {
         persistence: {
             sort: true,
-            columns: true,
         },
         persistenceID: "groupPersistence",
         layout: "fitColumns",
         ajaxURL: "http://localhost:8080/gathering/getAll",
         rowClick: function (e, row) {
-            makeMemberTable(row._row.data.id);
+            makeMemberTable(row._row.data["id"], row._row.data["location"]);
             var currentGroupID = row._row.data.id;
         },
         columns: [
-            {title: "ID", field: "id"},
-            {title: "Location", field: "location"},
+            {
+                title: "Location",
+                field: "location",
+                // align: "center"
+            },
 
         ],
     });
@@ -27,7 +32,9 @@ function makeGroupTable() {
 }
 
 
-function makeMemberTable(currentGroupID) {
+function makeMemberTable(currentGroupID, currentGroupName) {
+    document.getElementById("tableHeading").innerHTML = currentGroupName + " Members";
+
 
     var memberTable = new Tabulator("#memberTable", {
         dataEdited: function (data) {
@@ -39,7 +46,7 @@ function makeMemberTable(currentGroupID) {
 
         persistence: {
             sort: true,
-            columns: true,
+            // columns: true,
         },
         persistenceID: "memberPersistence",
         layout: "fitColumns",
@@ -50,19 +57,51 @@ function makeMemberTable(currentGroupID) {
                 title: "First Name",
                 field: "firstName",
                 editor: "input",
+                align: "center",
                 validator: ["required", "minLength:2", "maxLength:25"]
             },
             {
                 title: "Second Name",
                 field: "lastName",
                 editor: "input",
+                align: "center",
                 validator: ["required", "minLength:2", "maxLength:25"]
             },
-            {title: "Gloves", field: "hasGloves", formatter: "tickCross", editor: "tickCross"},
-            {title: "Membership", field: "paidMembership", formatter: "tickCross", editor: "tickCross"},
-            {title: "Shoes", field: "hasShoes", formatter: "tickCross", editor: "tickCross"},
-            {title: "Clothes", field: "hasClothes", formatter: "tickCross", editor: "tickCross"},
-            {title: "Officer", field: "isGatheringOfficer", formatter: "tickCross", editor: "tickCross"},
+            {
+                title: "Gloves",
+                field: "hasGloves",
+                align: "center",
+                formatter: "tickCross",
+                editor: "tickCross"
+            },
+            {
+                title: "Membership",
+                field: "paidMembership",
+                align: "center",
+                formatter: "tickCross",
+                editor: "tickCross"
+            },
+            {
+                title: "Shoes",
+                field: "hasShoes",
+                align: "center",
+                formatter: "tickCross",
+                editor: "tickCross"
+            },
+            {
+                title: "Clothes",
+                field: "hasClothes",
+                align: "center",
+                formatter: "tickCross",
+                editor: "tickCross"
+            },
+            {
+                title: "Officer",
+                field: "isGatheringOfficer",
+                align: "center",
+                formatter: "tickCross",
+                editor: "tickCross"
+            },
 
         ],
     });
@@ -98,6 +137,10 @@ function makeMemberTable(currentGroupID) {
     deleteMemberButton.addEventListener("click", function () {
         deleteMember(memberTable, (memberTable.getData()));
     });
+
+    let instructionsText = document.createElement("p");
+    instructionsText.innerHTML = "Click on any cell to edit the data.  It will automatically update the database.  The full name must be unique and both names must be between 2 and 25 characters."
+    table.appendChild(instructionsText)
 
 }
 

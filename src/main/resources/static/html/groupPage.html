@@ -2,9 +2,32 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Normannis Membership App</title>
 </head>
+<style>
+    .center {
+        text-align: center;
+        width: 100%;
+        border: 3px;
+        margin: auto;
+    }
+
+    .tabulator-col-title {
+        text-align: center;
+        font-size: large;
+        padding-left: 25px;
+    }
+
+    div {
+        text-align: center;
+    }
+</style>
 <body>
+<header class="center">
+    <h1>Normannis</h1>
+    <h2>Membership App</h2>
+    <h3 id="tableHeading"></h3>
+</header>
 
 <div id="groupTable"></div>
 <div id="memberTable"></div>
@@ -18,10 +41,3 @@
 <script src="../js/groupPage.js"></script>
 
 </html>
-
-<!--
-
-use the below to open chrome witohut security
-google-chrome --disable-web-security --user-data-dir
-
-/-->
