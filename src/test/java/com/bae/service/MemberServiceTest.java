@@ -1,5 +1,6 @@
 package com.bae.service;
 
+import com.bae.member.exceptions.NonUniqueNameCombinationException;
 import com.bae.persistence.domain.Member;
 import com.bae.persistence.repo.MemberRepo;
 import org.junit.Before;
@@ -41,7 +42,7 @@ public class MemberServiceTest {
 
 
     @Test
-    public void addNewMemberTest() {
+    public void addNewMemberTest() throws NonUniqueNameCombinationException {
         when(this.repo.save(testMember)).thenReturn((testMemberWithID));
 
         assertEquals(this.testMemberWithID, this.service.addNewMember(testMember));

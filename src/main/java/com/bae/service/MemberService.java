@@ -3,8 +3,10 @@ package com.bae.service;
 import com.bae.member.exceptions.*;
 import com.bae.persistence.domain.Member;
 import com.bae.persistence.repo.MemberRepo;
+import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.stereotype.Service;
 
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
 
 @Service
@@ -22,15 +24,24 @@ public class MemberService {
     }
 
 
-    public Member addNewMember(Member member) {
+    public Member addNewMember(Member member) throws NonUniqueNameCombinationException {
         checkNameLength(member);
-        return memberRepo.save(member);
+        try {
+            return memberRepo.save(member);
+        } catch (org.springframework.dao.DataIntegrityViolationException e) {
+            throw new NonUniqueNameCombinationException();
+        }
+
     }
 
-    public Member addNewMember(Member member, long id) {
+    public Member addNewMember(Member member, long id) throws NonUniqueNameCombinationException {
         checkNameLength(member);
-        memberRepo.save(member);
-        gatheringService.addMember(member, id);
+        try {
+            memberRepo.save(member);
+            gatheringService.addMember(member, id);
+        } catch (org.springframework.dao.DataIntegrityViolationException e) {
+            throw new NonUniqueNameCombinationException();
+        }
 
         return null;
     }
@@ -56,6 +67,11 @@ public class MemberService {
         return memberRepo.save(toUpdate);
     }
 
+    public String deleteMember(Long id) {
+        memberRepo.deleteById(id);
+        return "Member successfully deleted.";
+    }
+
     private void checkNameLength(Member member) {
         int firstNameLength = member.getFirstName().length();
         int secondNameLength = member.getLastName().length();
@@ -65,8 +81,4 @@ public class MemberService {
         if (secondNameLength > 25) throw new MemberSecondNameTooLongException();
     }
 
-    public String deleteMember(Long id) {
-        memberRepo.deleteById(id);
-        return "Member successfully deleted.";
-    }
 }

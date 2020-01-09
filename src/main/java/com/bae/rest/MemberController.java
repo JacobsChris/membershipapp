@@ -1,5 +1,6 @@
 package com.bae.rest;
 
+import com.bae.member.exceptions.NonUniqueNameCombinationException;
 import com.bae.persistence.domain.Member;
 import com.bae.service.MemberService;
 import org.springframework.web.bind.annotation.*;
@@ -26,12 +27,12 @@ public class MemberController {
     }
 
     @PostMapping("/create")
-    public Member addNewMember(@RequestBody Member member) {
+    public Member addNewMember(@RequestBody Member member) throws NonUniqueNameCombinationException {
         return memberService.addNewMember(member);
     }
 
     @PostMapping("/create/{id}")
-    public Member addNewMember(@RequestBody Member member, @PathVariable Long id) {
+    public Member addNewMember(@RequestBody Member member, @PathVariable Long id) throws NonUniqueNameCombinationException {
         return memberService.addNewMember(member, id);
     }
 

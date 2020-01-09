@@ -1,6 +1,7 @@
 package com.bae.service;
 
 import com.bae.member.exceptions.MemberNotFoundException;
+import com.bae.member.exceptions.NonUniqueNameCombinationException;
 import com.bae.persistence.domain.Member;
 import com.bae.persistence.repo.MemberRepo;
 import org.assertj.core.util.Arrays;
@@ -39,7 +40,7 @@ public class MemberServiceIntegrationTest {
     }
 
     @Test
-    public void testAddMember() {
+    public void testAddMember() throws NonUniqueNameCombinationException {
         assertEquals(this.testMemberWithID, this.service.addNewMember(testMember));
     }
 
