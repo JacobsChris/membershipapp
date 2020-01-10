@@ -36,9 +36,10 @@ function makeMemberTable(currentGroupID, currentGroupName) {
 
     let memberTable = new Tabulator("#memberTable", {
         dataEdited: function (data) {
-            //data - the updated table data
-            submitDataChanges();
-            cleanUpText();
+            // data - the updated table data
+            submitDataChangesTest(data);
+
+
             console.log("call back triggered")
         },
 
@@ -169,42 +170,51 @@ function submitDataChanges(data) {
 }
 
 
-// function submitDataChangesPromise(data) {
-//     for (let i = 0; i < data.length; i++) {
-//         let memberData = data[i];
-//
-//         if (memberData.hasOwnProperty("id")) {
-//             let memberID = memberData["id"];
-//             let memberJSON = memberData;
-//             delete memberJSON.id;
-//             memberJSON = JSON.stringify(memberJSON);
-//
-//             return new Promise((resolve, reject) => {
-//                 $.ajax({
-//                     url: "http://localhost:8080/member/update/" + memberID,
-//                     type: "PUT",
-//                     data: memberJSON,
-//                     contentType: "application/json"
-//                 }).done((response) => {
-//                     resolve(response);
-//                 }).fail((error) => {
-//                     if (error.statusCode()["status"] === 409) {
-//                         createElementWithID("p", "nameInstructions");
-//                         let nameInstructions = document.getElementById("nameInstructions");
-//                         let instructionText = document.getElementById("instructionsText");
-//                         instructionText.appendChild(nameInstructions);
-//                         nameInstructions.innerHTML = "Someone in the database already has that name combination.  Please try another."
-//                         return false;
-//                     }
-//                     reject(error);
-//                 }).then(function () {
-//                 })
-//
-//             })
-//         }
-//     }
-//     return true
-// }
+function submitDataChangesTest(data) {
+    for (let i = 0; i < data.length; i++) {
+        let memberData = data[i];
+        let firstName = memberData["firstName"];
+        let secondName = memberData["lastName"];
+        let listOfFirstNames = new Array();
+        let listOfSecondNames = new Array();
+        listOfFirstNames.push(firstName);
+        listOfSecondNames.push(secondName);
+        console.log("list of names");
+        console.log(listOfFirstNames);
+
+
+        if ((firstName != "First name here") && (secondName != "Second name here")) {
+            console.log("names shouldn't equal First and Last name here");
+            console.log(firstName + " + " + secondName);
+
+            if (memberData.hasOwnProperty("id")) {
+                let memberID = memberData["id"];
+                let memberJSON = memberData;
+                delete memberJSON.id;
+                memberJSON = JSON.stringify(memberJSON);
+                $.ajax({
+                    url: "http://localhost:8080/member/update/" + memberID,
+                    type: "PUT",
+                    data: memberJSON,
+                    contentType: "application/json"
+                });
+                cleanUpText()
+            }
+        } else if ((firstName == "Fist name here") || (secondName == "Second name here")) {
+            console.log("if name equals filler text");
+            console.log(firstName + " + " + secondName);
+            console.log(firstName + " + " + secondName);
+            console.log(firstName + " + " + secondName);
+
+            let instructionText = document.getElementById("instructionsText");
+            createElementWithID("p", "extraInstructions");
+            let extraInstructions = document.getElementById("extraInstructions");
+            instructionText.appendChild(extraInstructions);
+            extraInstructions.innerHTML = "Please fill in your new member's details.  You cannot return to groups until you have"
+
+        }
+    }
+}
 
 
 function addMember(tempMemberJSON, currentGroupID) {
