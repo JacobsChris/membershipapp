@@ -171,22 +171,34 @@ function submitDataChanges(data) {
 
 
 function submitDataChangesTest(data) {
+    let listOfFirstNames = [];
+    let listOfSecondNames = [];
+
+
     for (let i = 0; i < data.length; i++) {
         let memberData = data[i];
         let firstName = memberData["firstName"];
         let secondName = memberData["lastName"];
-        let listOfFirstNames = new Array();
-        let listOfSecondNames = new Array();
-        listOfFirstNames.push(firstName);
-        listOfSecondNames.push(secondName);
-        console.log("list of names");
-        console.log(listOfFirstNames);
+        // console.log("list of names");
+        // console.log(listOfFirstNames);
+        // console.log("end of list");
 
 
-        if ((firstName != "First name here") && (secondName != "Second name here")) {
-            console.log("names shouldn't equal First and Last name here");
-            console.log(firstName + " + " + secondName);
+        if ((firstName == "First name here") || (secondName == "Second name here")) {
+            console.log("if name equals filler text");
+            // console.log(firstName + " + " + secondName);
+            extraInstructionMaker();
+            document.getElementById("goBackButton").disabled = true;
+            break
+        } else if ((listOfFirstNames.includes(firstName)) && listOfSecondNames.includes(secondName)) {
+            console.log("not unique name");
+            nameInstructionsMaker();
+            document.getElementById("goBackButton").disabled = true;
+            break
 
+        } else {
+
+            console.log("else");
             if (memberData.hasOwnProperty("id")) {
                 let memberID = memberData["id"];
                 let memberJSON = memberData;
@@ -198,20 +210,12 @@ function submitDataChangesTest(data) {
                     data: memberJSON,
                     contentType: "application/json"
                 });
-                cleanUpText()
+                cleanUpText();
+                document.getElementById("goBackButton").disabled = false;
+                listOfFirstNames.push(firstName);
+                listOfSecondNames.push(secondName);
+
             }
-        } else if ((firstName == "Fist name here") || (secondName == "Second name here")) {
-            console.log("if name equals filler text");
-            console.log(firstName + " + " + secondName);
-            console.log(firstName + " + " + secondName);
-            console.log(firstName + " + " + secondName);
-
-            let instructionText = document.getElementById("instructionsText");
-            createElementWithID("p", "extraInstructions");
-            let extraInstructions = document.getElementById("extraInstructions");
-            instructionText.appendChild(extraInstructions);
-            extraInstructions.innerHTML = "Please fill in your new member's details.  You cannot return to groups until you have"
-
         }
     }
 }
@@ -219,8 +223,6 @@ function submitDataChangesTest(data) {
 
 function addMember(tempMemberJSON, currentGroupID) {
     return new Promise((resolve, reject) => {
-        let instructionText = document.getElementById("instructionsText");
-
         $.ajax({
             url: "http://localhost:8080/member/create/" + currentGroupID,
             type: "POST",
@@ -230,20 +232,34 @@ function addMember(tempMemberJSON, currentGroupID) {
             resolve(response);
         }).fail((error) => {
             if (error.statusCode()["status"] === 409) {
-                createElementWithID("p", "nameInstructions");
-                let nameInstructions = document.getElementById("nameInstructions");
-                instructionText.appendChild(nameInstructions);
-                nameInstructions.innerHTML = "Someone in the database already has that name combination.  Please try another."
+                nameInstructionsMaker()
             }
             reject(error);
         }).then(function () {
-            createElementWithID("p", "extraInstructions");
-            let extraInstructions = document.getElementById("extraInstructions");
-            instructionText.appendChild(extraInstructions);
-            extraInstructions.innerHTML = "Please fill in your new member's details.  You cannot return to groups until you have"
+            extraInstructionMaker()
         });
     });
 }
+
+
+function extraInstructionMaker() {
+    let instructionText = document.getElementById("instructionsText");
+    createElementWithID("p", "extraInstructions");
+    let extraInstructions = document.getElementById("extraInstructions");
+    instructionText.appendChild(extraInstructions);
+    extraInstructions.innerHTML = "Please fill in your new member's details.  You cannot return to groups until you have"
+}
+
+function nameInstructionsMaker() {
+    let instructionText = document.getElementById("instructionsText");
+
+    createElementWithID("p", "nameInstructions");
+    let nameInstructions = document.getElementById("nameInstructions");
+    instructionText.appendChild(nameInstructions);
+    nameInstructions.innerHTML = "Someone in the database already has that name combination.  Please try another.  You cannot return to groups until you have a unique name combination"
+
+}
+
 
 function deleteMember(memberTable, data) {
 
@@ -295,15 +311,11 @@ function createElementWithID(elementTag, elementId) {
 
 function cleanUpText() {
     try {
-        removeElement("extraInstructions").then(function () {
-            document.getElementById("goBackButton").disabled = false;
-        });
+        removeElement("extraInstructions");
     } catch {
     }
     try {
-        removeElement("nameInstructions").then(function () {
-            document.getElementById("goBackButton").disabled = false;
-        });
+        removeElement("nameInstructions");
     } catch {
     }
 }
