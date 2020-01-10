@@ -3,10 +3,8 @@ package com.bae.service;
 import com.bae.member.exceptions.*;
 import com.bae.persistence.domain.Member;
 import com.bae.persistence.repo.MemberRepo;
-import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.stereotype.Service;
 
-import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
 
 @Service
@@ -24,7 +22,7 @@ public class MemberService {
     }
 
 
-    public Member addNewMember(Member member) throws NonUniqueNameCombinationException {
+    public Member addNewMember(Member member) {
         checkNameLength(member);
         try {
             return memberRepo.save(member);
@@ -34,7 +32,7 @@ public class MemberService {
 
     }
 
-    public Member addNewMember(Member member, long id) throws NonUniqueNameCombinationException {
+    public Member addNewMember(Member member, long id) {
         checkNameLength(member);
         try {
             memberRepo.save(member);
@@ -64,8 +62,13 @@ public class MemberService {
         toUpdate.setHasGloves(member.isHasGloves());
         toUpdate.setHasShoes(member.isHasShoes());
 
-        return memberRepo.save(toUpdate);
+        try {
+            return memberRepo.save(toUpdate);
+        } catch (org.springframework.dao.DataIntegrityViolationException e) {
+            throw new NonUniqueNameCombinationException();
+        }
     }
+
 
     public String deleteMember(Long id) {
         memberRepo.deleteById(id);

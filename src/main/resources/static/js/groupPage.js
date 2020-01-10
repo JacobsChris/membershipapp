@@ -1,6 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
     makeGroupTable();
-    // let tableHeading = document.getElementById("tableHeading");
 });
 
 
@@ -22,7 +21,6 @@ function makeGroupTable() {
             {
                 title: "Location",
                 field: "location",
-                // align: "center"
             },
 
         ],
@@ -36,18 +34,16 @@ function makeMemberTable(currentGroupID, currentGroupName) {
     document.getElementById("tableHeading").innerHTML = currentGroupName + " Members";
 
 
-    var memberTable = new Tabulator("#memberTable", {
+    let memberTable = new Tabulator("#memberTable", {
         dataEdited: function (data) {
             //data - the updated table data
-            submitDataChanges(data);
-            alert("Member updated!");
+            submitDataChanges();
+            cleanUpText();
+            console.log("call back triggered")
         },
 
 
-        persistence: {
-            sort: true,
-            // columns: true,
-        },
+        persistence: {sort: true,},
         persistenceID: "memberPersistence",
         layout: "fitColumns",
         ajaxURL: "http://localhost:8080/gathering/getMembers/" + currentGroupID,
@@ -113,6 +109,7 @@ function makeMemberTable(currentGroupID, currentGroupName) {
 
 
     let goBackButton = document.createElement("button");
+    goBackButton.id = "goBackButton";
     goBackButton.innerHTML = "Go Back To Groups";
     table.appendChild(goBackButton);
     goBackButton.addEventListener("click", function () {
@@ -124,10 +121,16 @@ function makeMemberTable(currentGroupID, currentGroupName) {
     table.appendChild(addMemberButton);
     let tempMemberJSON = JSON.stringify({firstName: "First name here", lastName: "Second name here"});
     addMemberButton.addEventListener("click", function () {
-        memberTable.addRow(tempMemberJSON, false).then(function () {
-                addMember(tempMemberJSON, currentGroupID)
-            }
-        )
+        addMember(tempMemberJSON, currentGroupID)
+            .then(function () {
+                memberTable.addRow(tempMemberJSON, false)
+            })
+            .then(function () {
+                goBackButton.disabled = true
+            })
+            .then(function () {
+                memberTable.setData();
+            })
     });
 
 
@@ -139,6 +142,7 @@ function makeMemberTable(currentGroupID, currentGroupName) {
     });
 
     let instructionsText = document.createElement("p");
+    instructionsText.id = "instructionsText";
     instructionsText.innerHTML = "Click on any cell to edit the data.  It will automatically update the database.  The full name must be unique and both names must be between 2 and 25 characters."
     table.appendChild(instructionsText)
 
@@ -164,13 +168,71 @@ function submitDataChanges(data) {
     }
 }
 
+
+// function submitDataChangesPromise(data) {
+//     for (let i = 0; i < data.length; i++) {
+//         let memberData = data[i];
+//
+//         if (memberData.hasOwnProperty("id")) {
+//             let memberID = memberData["id"];
+//             let memberJSON = memberData;
+//             delete memberJSON.id;
+//             memberJSON = JSON.stringify(memberJSON);
+//
+//             return new Promise((resolve, reject) => {
+//                 $.ajax({
+//                     url: "http://localhost:8080/member/update/" + memberID,
+//                     type: "PUT",
+//                     data: memberJSON,
+//                     contentType: "application/json"
+//                 }).done((response) => {
+//                     resolve(response);
+//                 }).fail((error) => {
+//                     if (error.statusCode()["status"] === 409) {
+//                         createElementWithID("p", "nameInstructions");
+//                         let nameInstructions = document.getElementById("nameInstructions");
+//                         let instructionText = document.getElementById("instructionsText");
+//                         instructionText.appendChild(nameInstructions);
+//                         nameInstructions.innerHTML = "Someone in the database already has that name combination.  Please try another."
+//                         return false;
+//                     }
+//                     reject(error);
+//                 }).then(function () {
+//                 })
+//
+//             })
+//         }
+//     }
+//     return true
+// }
+
+
 function addMember(tempMemberJSON, currentGroupID) {
-    $.ajax({
-        url: "http://localhost:8080/member/create/" + currentGroupID,
-        type: "POST",
-        data: tempMemberJSON,
-        contentType: "application/json"
-    })
+    return new Promise((resolve, reject) => {
+        let instructionText = document.getElementById("instructionsText");
+
+        $.ajax({
+            url: "http://localhost:8080/member/create/" + currentGroupID,
+            type: "POST",
+            data: tempMemberJSON,
+            contentType: "application/json"
+        }).done((response) => {
+            resolve(response);
+        }).fail((error) => {
+            if (error.statusCode()["status"] === 409) {
+                createElementWithID("p", "nameInstructions");
+                let nameInstructions = document.getElementById("nameInstructions");
+                instructionText.appendChild(nameInstructions);
+                nameInstructions.innerHTML = "Someone in the database already has that name combination.  Please try another."
+            }
+            reject(error);
+        }).then(function () {
+            createElementWithID("p", "extraInstructions");
+            let extraInstructions = document.getElementById("extraInstructions");
+            instructionText.appendChild(extraInstructions);
+            extraInstructions.innerHTML = "Please fill in your new member's details.  You cannot return to groups until you have"
+        });
+    });
 }
 
 function deleteMember(memberTable, data) {
@@ -221,10 +283,19 @@ function createElementWithID(elementTag, elementId) {
 
 }
 
+function cleanUpText() {
+    try {
+        removeElement("extraInstructions").then(function () {
+            document.getElementById("goBackButton").disabled = false;
+        });
+    } catch {
+    }
+    try {
+        removeElement("nameInstructions").then(function () {
+            document.getElementById("goBackButton").disabled = false;
+        });
+    } catch {
+    }
+}
 
-/*
-TODO add member functionality: should just be add button and then form
-
-TODO delete member functionality: might just be a button and then type form
- */
 
