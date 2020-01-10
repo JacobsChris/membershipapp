@@ -1,0 +1,28 @@
+.center {
+    text-align: center;
+    width: 100%;
+    border: 3px;
+    margin: auto;
+}
+
+#groupTable {
+    background-color: #8cf0ff
+}
+
+#memberTable {
+    background-color: #8cf0ff
+}
+
+.tabulator-col-title {
+    text-align: center;
+    font-size: large;
+    padding-left: 25px;
+}
+
+div {
+    text-align: center;
+}
+
+body {
+    background-color: #8cf0ff;
+}
