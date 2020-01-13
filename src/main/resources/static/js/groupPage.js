@@ -37,7 +37,7 @@ function makeMemberTable(currentGroupID, currentGroupName) {
     let memberTable = new Tabulator("#memberTable", {
         dataEdited: function (data) {
             // data - the updated table data
-            submitDataChangesTest(data);
+            submitDataChanges(data);
 
 
             console.log("call back triggered")
@@ -142,35 +142,16 @@ function makeMemberTable(currentGroupID, currentGroupName) {
         deleteMember(memberTable, (memberTable.getData()));
     });
 
-    let instructionsText = document.createElement("p");
+    let instructionsText = document.createElement("ul");
     instructionsText.id = "instructionsText";
-    instructionsText.innerHTML = "Click on any cell to edit the data.  It will automatically update the database.  The full name must be unique and both names must be between 2 and 25 characters."
+    instructionsText.innerHTML = "How to use:";
+    instructionsText.innerHTML += "<li>Click on any cell to edit the data.  It will automatically update the database.</li>";
+    instructionsText.innerHTML += "<li>The full name must be unique and both names must be between 2 and 25 characters.</li>";
     table.appendChild(instructionsText)
 
 }
 
 function submitDataChanges(data) {
-    for (let i = 0; i < data.length; i++) {
-        let memberData = data[i];
-
-        if (memberData.hasOwnProperty("id")) {
-            let memberID = memberData["id"];
-            let memberJSON = memberData;
-            delete memberJSON.id;
-            memberJSON = JSON.stringify(memberJSON);
-
-            $.ajax({
-                url: "http://localhost:8080/member/update/" + memberID,
-                type: "PUT",
-                data: memberJSON,
-                contentType: "application/json"
-            })
-        }
-    }
-}
-
-
-function submitDataChangesTest(data) {
     let listOfFirstNames = [];
     let listOfSecondNames = [];
 
@@ -179,10 +160,6 @@ function submitDataChangesTest(data) {
         let memberData = data[i];
         let firstName = memberData["firstName"];
         let secondName = memberData["lastName"];
-        // console.log("list of names");
-        // console.log(listOfFirstNames);
-        // console.log("end of list");
-
 
         if ((firstName == "First name here") || (secondName == "Second name here")) {
             console.log("if name equals filler text");

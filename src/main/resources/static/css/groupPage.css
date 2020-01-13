@@ -26,3 +26,7 @@ div {
 body {
     background-color: #8cf0ff;
 }
+
+ul {
+    list-style: none;
+}
