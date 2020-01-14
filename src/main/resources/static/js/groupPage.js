@@ -40,7 +40,7 @@ function makeMemberTable(currentGroupID, currentGroupName) {
             submitDataChanges(data);
 
 
-            console.log("call back triggered")
+            // console.log("call back triggered")
         },
 
 
@@ -118,8 +118,10 @@ function makeMemberTable(currentGroupID, currentGroupName) {
     });
 
     let addMemberButton = document.createElement("button");
+    addMemberButton.id = "addMemberButton";
     addMemberButton.innerHTML = "Add New Member";
     table.appendChild(addMemberButton);
+
     let tempMemberJSON = JSON.stringify({firstName: "First name here", lastName: "Second name here"});
     addMemberButton.addEventListener("click", function () {
         addMember(tempMemberJSON, currentGroupID)
@@ -127,10 +129,11 @@ function makeMemberTable(currentGroupID, currentGroupName) {
                 memberTable.addRow(tempMemberJSON, false)
             })
             .then(function () {
-                goBackButton.disabled = true
+                goBackButton.disabled = true;
+                addMemberButton.disabled = true;
             })
             .then(function () {
-                memberTable.setData();
+                memberTable.setData("http://localhost:8080/gathering/getMembers/" + currentGroupID);
             })
     });
 
@@ -158,24 +161,36 @@ function submitDataChanges(data) {
 
     for (let i = 0; i < data.length; i++) {
         let memberData = data[i];
+
+        memberData["firstName"] = memberData["firstName"]
+            .toLowerCase()
+            .replace(/^\w/, c => c.toUpperCase());
+        memberData["lastName"] = memberData["lastName"]
+            .toLowerCase()
+            .replace(/^\w/, c => c.toUpperCase());
+
+
         let firstName = memberData["firstName"];
         let secondName = memberData["lastName"];
 
-        if ((firstName == "First name here") || (secondName == "Second name here")) {
-            console.log("if name equals filler text");
-            // console.log(firstName + " + " + secondName);
+        if (firstName === "First name here" || secondName === "Second name here") {
+            // console.log("if name equals filler text");
             extraInstructionMaker();
             document.getElementById("goBackButton").disabled = true;
+            document.getElementById("addMemberButton").disabled = true;
+
             break
-        } else if ((listOfFirstNames.includes(firstName)) && listOfSecondNames.includes(secondName)) {
-            console.log("not unique name");
+        } else if (listOfFirstNames.includes(firstName) && listOfSecondNames.includes(secondName)) {
+            // console.log("not unique name");
             nameInstructionsMaker();
             document.getElementById("goBackButton").disabled = true;
+            document.getElementById("addMemberButton").disabled = true;
+
             break
 
         } else {
 
-            console.log("else");
+            // console.log("else");
             if (memberData.hasOwnProperty("id")) {
                 let memberID = memberData["id"];
                 let memberJSON = memberData;
@@ -189,6 +204,8 @@ function submitDataChanges(data) {
                 });
                 cleanUpText();
                 document.getElementById("goBackButton").disabled = false;
+                document.getElementById("addMemberButton").disabled = false;
+
                 listOfFirstNames.push(firstName);
                 listOfSecondNames.push(secondName);
 
@@ -240,10 +257,10 @@ function nameInstructionsMaker() {
 
 function deleteMember(memberTable, data) {
 
-    console.log(data);
+    // console.log(data);
 
     if (confirm("Do you really want to delete a member?  This action cannot be undone.")) {
-        console.log("deleting things!");
+        // console.log("deleting things!");
 
         // var memberTable = document.getElementById("memberTable");
 
@@ -254,7 +271,7 @@ function deleteMember(memberTable, data) {
             let memberData = data[i];
             if ((memberData["firstName"] === firstName) && (memberData["lastName"] === secondName)) {
                 let memberID = memberData["id"];
-                console.log(memberID);
+                // console.log(memberID);
 
 
                 $.ajax({
@@ -266,7 +283,7 @@ function deleteMember(memberTable, data) {
 
 
     } else {
-        console.log("Not deleting things")
+        // console.log("Not deleting things")
     }
 
 
