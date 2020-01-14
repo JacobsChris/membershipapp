@@ -250,7 +250,7 @@ function nameInstructionsMaker() {
     createElementWithID("p", "nameInstructions");
     let nameInstructions = document.getElementById("nameInstructions");
     instructionText.appendChild(nameInstructions);
-    nameInstructions.innerHTML = "Someone in the database already has that name combination.  Please try another.  You cannot return to groups until you have a unique name combination"
+    nameInstructions.innerHTML = "Someone in the database already has that name combination.  Please try another.  You cannot return to groups until you have a unique name combination.  Note, these are not case sensitive."
 
 }
 
