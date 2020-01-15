@@ -57,11 +57,6 @@ public class GatheringControllerTest {
         verify(this.service, times(1)).deleteGathering(id);
     }
 
-    @Test
-    public void findGatheringByIDTest() {
-        when(this.service.findGatheringByID(this.id)).thenReturn(this.testGatheringWithID);
-
-    }
 
     @Test
     public void getAllGatheringsTest() {
