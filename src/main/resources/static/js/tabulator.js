@@ -3889,7 +3889,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 				};
 			}
 
-			return;
+
 		} else {
 
 			if (self.table.modExists("edit")) {
