@@ -33,17 +33,6 @@ public class Member {
     }
 
 
-//    public Member(String firstName, String lastName, Gathering gatheringID, boolean paidMembership, boolean hasGloves, boolean hasShoes, boolean hasClothes, boolean isGatheringOfficer) {
-//        this.firstName = firstName;
-//        this.lastName = lastName;
-//        this.gatheringID = gatheringID;
-//        this.paidMembership = paidMembership;
-//        this.hasGloves = hasGloves;
-//        this.hasShoes = hasShoes;
-//        this.hasClothes = hasClothes;
-//        this.isGatheringOfficer = isGatheringOfficer;
-//    }
-
     public long getId() {
         return id;
     }

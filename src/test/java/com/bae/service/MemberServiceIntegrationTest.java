@@ -46,7 +46,7 @@ public class MemberServiceIntegrationTest {
 
     @Test
     public void testDeleteMember() {
-        assertEquals(this.service.deleteMember((this.testMemberWithID.getId())), "Member successfully deleted.");
+        assertEquals("Member successfully deleted.", this.service.deleteMember((this.testMemberWithID.getId())));
         try {
             this.service.findMemberByID(this.testMemberWithID.getId());
         } catch (MemberNotFoundException e) {
