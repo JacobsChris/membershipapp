@@ -1,6 +1,5 @@
 package com.bae.rest;
 
-import com.bae.member.exceptions.NonUniqueNameCombinationException;
 import com.bae.persistence.domain.Member;
 import com.bae.service.MemberService;
 import org.junit.Before;
@@ -41,12 +40,21 @@ public class MemberControllerTest {
     }
 
     @Test
-    public void addMemberTest() throws NonUniqueNameCombinationException {
+    public void addMemberTest() {
         when(this.service.addNewMember(testMember)).thenReturn(testMemberWithID);
 
         assertEquals(this.testMemberWithID, this.controller.addNewMember(testMember));
 
         verify(this.service, times(1)).addNewMember(this.testMember);
+    }
+
+    @Test
+    public void addMemberTestWitID() {
+        when(this.service.addNewMember(testMember, testMemberWithID.getId())).thenReturn(testMemberWithID);
+
+        assertEquals(this.testMemberWithID, this.controller.addNewMember(testMember, testMemberWithID.getId()));
+
+        verify(this.service, times(1)).addNewMember(this.testMember, testMemberWithID.getId());
     }
 
     @Test
@@ -61,6 +69,15 @@ public class MemberControllerTest {
         when(service.getAllMember()).thenReturn(this.memberList);
 
         assertFalse(this.controller.getAllMember().isEmpty(), "Controller has found no members.");
+
+    }
+
+    @Test
+    public void getMemberWithID() {
+        when(service.findMemberByID(testMemberWithID.getId())).thenReturn(this.testMemberWithID);
+
+        assertFalse(this.controller.getMember(testMemberWithID.getId()).equals(null), "Controller has found no members.");
+
 
     }
 
