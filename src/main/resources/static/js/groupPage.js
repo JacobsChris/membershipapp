@@ -198,7 +198,7 @@ function submitDataChanges(data) {
                 delete memberJSON.id;
                 memberJSON = JSON.stringify(memberJSON);
                 $.ajax({
-                    url: "/member/update/" + memberID,
+                    url: "/MembershipApp/member/update/" + memberID,
                     type: "PUT",
                     data: memberJSON,
                     contentType: "application/json"
