@@ -45,7 +45,7 @@ public class SeleniumTest {
     @Test
     public void testAccessGroup() {
 
-        driver.get("http://localhost:63342/membershipapp/static/index.html?_ijt=rdf191mtdj5rjfsfu3t37dko32");
+        driver.get("http://localhost:8080/");
 
         driver.findElement(By.xpath("/html/body/div[1]/div[2]/div/div[1]")).click();
 
@@ -60,24 +60,48 @@ public class SeleniumTest {
     }
 
     @Test
-    public void testMemberFrontEndCRUD() {
+    public void testMemberFrontEndCRUD() throws InterruptedException {
 
-        driver.get("http://localhost:63342/membershipapp/static/index.html?_ijt=rdf191mtdj5rjfsfu3t37dko32");
+        driver.get("http://localhost:8080/");
 
         driver.findElement(By.xpath("/html/body/div[1]/div[2]/div/div[1]")).click();
 
+
         driver.findElement(By.id("addMemberButton")).click(); //will add member
 
+
         String shiftHome = Keys.chord(Keys.SHIFT, Keys.HOME);
+        String testName = "Testname";
 
         driver.findElement(By.xpath("/html/body/div[1]/div[2]/div/div/div[1]")).click();
-        driver.findElement(By.xpath("/html/body/div[1]/div[2]/div/div/div[1]")).sendKeys(shiftHome, Keys.BACK_SPACE, "TestName", Keys.ENTER);
+
+
+        driver.findElement(By.xpath("/html/body/div[1]/div[2]/div/div/div[1]")).sendKeys(shiftHome, Keys.BACK_SPACE, testName, Keys.ENTER);
+
+
         driver.findElement(By.xpath("/html/body/div[1]/div[2]/div/div/div[2]")).click();
-        driver.findElement(By.xpath("/html/body/div[1]/div[2]/div/div/div[1]")).sendKeys(shiftHome, Keys.BACK_SPACE, "TestName", Keys.ENTER);
+
+
+        driver.findElement(By.xpath("//html/body/div[1]/div[2]/div/div/div[2]")).sendKeys(shiftHome, Keys.BACK_SPACE, testName, Keys.ENTER);
         // above edits member
 
-        driver.findElement(By.id("deleteMemberButton")).click();
-        //clicks delete member.  Then add text to alert forms and click ok etc
+
+//        driver.findElement(By.id("deleteMemberButton")).click();
+//        //clicks delete member.  Then add text to alert forms and click ok etc
+//
+//        Thread.sleep(1000);
+//
+//        driver.switchTo().alert().accept();
+//
+//        Thread.sleep(1000);
+//
+//        driver.switchTo().alert().sendKeys(testName);
+//
+//        Thread.sleep(1000);
+//
+//        driver.switchTo().alert().sendKeys(testName);
+//
+//        Thread.sleep(1000);
 
 
     }
