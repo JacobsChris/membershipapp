@@ -139,6 +139,7 @@ function makeMemberTable(currentGroupID, currentGroupName) {
 
 
     let deleteMemberButton = document.createElement("button");
+    deleteMemberButton.id = "deleteMemberButton";
     deleteMemberButton.innerHTML = "Delete Member";
     table.appendChild(deleteMemberButton);
     deleteMemberButton.addEventListener("click", function () {
