@@ -1,18 +1,37 @@
-# membershipapp
-An app to manage members in normannis groups.
+# Normannis Member Tracker
+## An app to manage members in normannis groups.
 
-This app allows the controller of the application to add and otherwise manager groups.
-Anyone can then manage members in these groups through the website.
+### What it does:
+The end user can manage members in a group, including their name and membership status.
+The controller of the application can also manage groups.
 
-All members require a unique frist and second name combination, and are then given true/false values related to their equipment and meberhsip status.
-By default, these true/false options are set to false but can then be editted within the front end.  The names can also be editted from here.
-Adding and deleteing members is simple with the use of click buttons at the bottom of the members' table.  
-Whilst the placeholder names ("First name ehre" and "Second name here") are in place, the user cannot return to the group table or add another member to the group.
+### How to use:
+* All members require a unique frist and second name combination, and are then given true/false values related to their equipment and meberhsip status.
+* By default, these true/false options are set to false but can then be editted within the front end.  The names can also be editted from here.
+* Adding and deleteing members is simple with the use of click buttons at the bottom of the members' table.  
+* Whilst the placeholder names ("First name ehre" and "Second name here") are in place, the user cannot return to the group table or add another member to the group.
+* Returning to the group list is again accomplished with a button at the bottom of the members' table.
 
-Returning to the group list is again accomplished with a button at the bottom of the members' table.
 
-The tables are created within tabualtor, link below, and can be resized and sorted by the user.  Click to edit any value on the members' table.  
-Group management by the end-user is not currently supported.
+### Design infomation:
+* The tables are created within tabualtor, link below, and can be resized and sorted by the user.  Click to edit any value on the members' table.  
+*  Written in Java using SpringBoot
+
+
+### Requirements:
+#### Essential:
+* Spring Boot Starter Data JPA
+* Spring Boot Starter Web
+* Spring Boot Starter Tomcat
+* Spring Boot Maven Plugin
+* H2 / SQL database
+
+#### Testing:
+* Junit5
+* Spring Boot Starter Test
+* Selenium
+
+
 
 
 
@@ -23,10 +42,9 @@ Upon deployment, SQL will be used.
 
 
 
-Upcoming features:
-
-  Login function
-  Allocationg each group to a region for imrpvoed usabiltiy at scale
+###Upcoming features:
+* Login function
+* Allocationg each group to a region for imrpvoed usabiltiy at scale
   
 
 
@@ -34,4 +52,4 @@ Upcoming features:
 README last updated 15/01/2020
 
 
-Tabulaor documentation of version in use:  http://tabulator.info/docs/4.5
+Tabulator documentation of version in use:  http://tabulator.info/docs/4.5
