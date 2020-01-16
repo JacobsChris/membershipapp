@@ -42,7 +42,7 @@ Upon deployment, SQL will be used.
 
 
 
-###Upcoming features:
+### Upcoming features:
 * Login function
 * Allocationg each group to a region for imrpvoed usabiltiy at scale
   
