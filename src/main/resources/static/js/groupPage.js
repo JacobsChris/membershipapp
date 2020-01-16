@@ -12,7 +12,7 @@ function makeGroupTable() {
         },
         persistenceID: "groupPersistence",
         layout: "fitColumns",
-        ajaxURL: "http://localhost:8080/gathering/getAll",
+        ajaxURL: "http://localhost:8080/MembershipApp/gathering/getAll",
         rowClick: function (e, row) {
             makeMemberTable(row._row.data["id"], row._row.data["location"]);
             var currentGroupID = row._row.data.id;
@@ -47,7 +47,7 @@ function makeMemberTable(currentGroupID, currentGroupName) {
         persistence: {sort: true,},
         persistenceID: "memberPersistence",
         layout: "fitColumns",
-        ajaxURL: "http://localhost:8080/gathering/getMembers/" + currentGroupID,
+        ajaxURL: "http://localhost:8080/MembershipApp/gathering/getMembers/" + currentGroupID,
 
         columns: [
             {
@@ -133,7 +133,7 @@ function makeMemberTable(currentGroupID, currentGroupName) {
                 addMemberButton.disabled = true;
             })
             .then(function () {
-                memberTable.setData("http://localhost:8080/gathering/getMembers/" + currentGroupID);
+                memberTable.setData("http://localhost:8080/MembershipApp/gathering/getMembers/" + currentGroupID);
             })
     });
 
@@ -197,7 +197,7 @@ function submitDataChanges(data) {
                 delete memberJSON.id;
                 memberJSON = JSON.stringify(memberJSON);
                 $.ajax({
-                    url: "http://localhost:8080/member/update/" + memberID,
+                    url: "http://localhost:8080/MembershipApp/member/update/" + memberID,
                     type: "PUT",
                     data: memberJSON,
                     contentType: "application/json"
@@ -218,7 +218,7 @@ function submitDataChanges(data) {
 function addMember(tempMemberJSON, currentGroupID) {
     return new Promise((resolve, reject) => {
         $.ajax({
-            url: "http://localhost:8080/member/create/" + currentGroupID,
+            url: "http://localhost:8080/MembershipApp/member/create/" + currentGroupID,
             type: "POST",
             data: tempMemberJSON,
             contentType: "application/json"
@@ -275,7 +275,7 @@ function deleteMember(memberTable, data) {
 
 
                 $.ajax({
-                    url: "http://localhost:8080/member/delete/" + memberID,
+                    url: "http://localhost:8080/MembershipApp/member/delete/" + memberID,
                     type: "DELETE",
                 }).then(memberTable.setData())
             }
