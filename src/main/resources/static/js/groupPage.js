@@ -12,7 +12,7 @@ function makeGroupTable() {
         },
         persistenceID: "groupPersistence",
         layout: "fitColumns",
-        ajaxURL: "/gathering/getAll",
+        ajaxURL: "/MembershipApp/gathering/getAll",
         rowClick: function (e, row) {
             makeMemberTable(row._row.data["id"], row._row.data["location"]);
             var currentGroupID = row._row.data.id;
@@ -47,7 +47,7 @@ function makeMemberTable(currentGroupID, currentGroupName) {
         persistence: {sort: true,},
         persistenceID: "memberPersistence",
         layout: "fitColumns",
-        ajaxURL: "/gathering/getMembers/" + currentGroupID,
+        ajaxURL: "/MembershipApp/gathering/getMembers/" + currentGroupID,
 
         columns: [
             {
@@ -133,7 +133,7 @@ function makeMemberTable(currentGroupID, currentGroupName) {
                 addMemberButton.disabled = true;
             })
             .then(function () {
-                memberTable.setData("/gathering/getMembers/" + currentGroupID);
+                memberTable.setData("/MembershipApp/gathering/getMembers/" + currentGroupID);
             })
     });
 
@@ -219,7 +219,7 @@ function submitDataChanges(data) {
 function addMember(tempMemberJSON, currentGroupID) {
     return new Promise((resolve, reject) => {
         $.ajax({
-            url: "/member/create/" + currentGroupID,
+            url: "/MembershipApp/member/create/" + currentGroupID,
             type: "POST",
             data: tempMemberJSON,
             contentType: "application/json"
@@ -276,7 +276,7 @@ function deleteMember(memberTable, data) {
 
 
                 $.ajax({
-                    url: "/member/delete/" + memberID,
+                    url: "/MembershipApp/member/delete/" + memberID,
                     type: "DELETE",
                 }).then(memberTable.setData())
             }
