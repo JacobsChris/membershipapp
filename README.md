@@ -95,12 +95,14 @@ Upon deployment, SQL will be used.
    
 
   
-
+### Testing
+As of latest update, test coverage is 84% by lines of code, and 56% by classes.
+Unit tests and integration tests are performed on CRUD functionality with no failures.
   
 
   
 
-README last updated 17/01/2020 
+README last updated 20/01/2020 
 
   
 
