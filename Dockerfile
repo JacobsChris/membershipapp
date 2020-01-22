@@ -12,4 +12,4 @@ WORKDIR /opt/membershipapp
 
 COPY --from=0 /build/target/membershipapp.jar app.jar
 
-ENTRYPOINT ["/usr/bin/java", "-jar", "app.jar"]
+ENTRYPOINT ["/usr/bin/java", "-jar", "app.jar"
