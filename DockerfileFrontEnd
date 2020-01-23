@@ -3,3 +3,4 @@ FROM nginx:latest
 COPY src/main/resources/static /opt/web-application
 
 COPY /etc/nginx/nginx.conf /etc/nginx/nginx.conf
+
