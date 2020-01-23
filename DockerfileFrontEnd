@@ -1,10 +1,8 @@
 FROM maven:latest
 
-COPY . /build
+COPY src/main/resources/static /build
 
 WORKDIR /build
-
-RUN rm -rf src/main/resources/static
 
 RUN mvn clean package -Dskiptests
 
