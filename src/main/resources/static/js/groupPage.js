@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", function () {
     makeGroupTable();
 });
 
-let address = "http://3.11.111.10:4567/";
+let address = "";   //http://3.11.111.10:4567/";
 
 function makeGroupTable() {
     document.getElementById("tableHeading").innerHTML = "Groups";
