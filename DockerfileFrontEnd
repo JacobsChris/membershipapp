@@ -1,15 +1,5 @@
-FROM maven:latest
+FROM nginx:latest
 
-COPY src/main/resources/static /build
+COPY src/main/resources/static /opt/web-application
 
-WORKDIR /build
-
-RUN mvn clean package -Dskiptests
-
-FROM java:8
-
-WORKDIR /opt/membershipapp
-
-COPY --from=0 /build/target/membershipapp.jar app.jar
-
-ENTRYPOINT ["/usr/bin/java", "-jar", "app.jar"]
+COPY /etc/nginx/nginx.conf /etc/nginx/nginx.conf
