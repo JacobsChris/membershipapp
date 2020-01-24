@@ -2,6 +2,7 @@ document.addEventListener("DOMContentLoaded", function () {
     makeGroupTable();
 });
 
+
 let address = "http://3.11.111.10:9632/";
 
 function makeGroupTable() {
