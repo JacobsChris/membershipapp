@@ -203,7 +203,8 @@ function submitDataChanges(data) {
                     url: address + "/MembershipApp/member/update/" + memberID,
                     type: "PUT",
                     data: memberJSON,
-                    contentType: "application/json"
+                    contentType: "application/json",
+                    dataType: "jsonp"
                 });
                 cleanUpText();
                 document.getElementById("goBackButton").disabled = false;
@@ -224,7 +225,8 @@ function addMember(tempMemberJSON, currentGroupID) {
             url: address + "/MembershipApp/member/create/" + currentGroupID,
             type: "POST",
             data: tempMemberJSON,
-            contentType: "application/json"
+            contentType: "application/json",
+            dataType: "jsonp"
         }).done((response) => {
             resolve(response);
         }).fail((error) => {
