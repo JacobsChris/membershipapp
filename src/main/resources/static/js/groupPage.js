@@ -3,9 +3,9 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 
-let address = "http://localhost:3000/http://3.8.211.26:9632/";
+let address = "localhost:9632/";
 
-//Remember to change this when machiens update
+//Remember to change this when machines update
 
 function makeGroupTable() {
     document.getElementById("tableHeading").innerHTML = "Groups";
