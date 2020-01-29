@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 
-let address = "http://3.8.211.26:9632/";
+let address = "http://localhost:3000/http://3.8.211.26:9632/";
 
 //Remember to change this when machiens update
 
