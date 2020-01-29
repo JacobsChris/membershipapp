@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 
-let address = "https://localhost:9632/";
+let address = "http://localhost:9632/";
 
 //Remember to change this when machines update
 
