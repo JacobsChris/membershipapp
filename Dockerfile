@@ -12,6 +12,6 @@ FROM java:8
 
 WORKDIR /opt/membershipapp
 
-COPY --from=0 /build/target/membershipapp.jar app.jar
+COPY --from=0 /build/target/membershipapp-0.0.1-SNAPSHOT.jar app.jar
 
 ENTRYPOINT ["/usr/bin/java", "-jar", "app.jar"]
