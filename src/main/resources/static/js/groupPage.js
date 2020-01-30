@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 
-let address = "http://35.176.21.222:9632/";
+let address = "http://Backend:9632/";
 
 //Remember to change this when machines update
 
