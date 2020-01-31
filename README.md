@@ -99,7 +99,12 @@ Upon deployment, SQL will be used.
 As of latest update, test coverage is 84% by lines of code, and 56% by classes.
 Unit tests and integration tests are performed on CRUD functionality with no failures.
   
+  
+  
 ### Installation and Configuration
+#### Project Architecture
+![Image of project architecture](https://imgur.com/a/BZm8dgZ)
+
 The reccomended setup is using AWS.
 Once an AWS free-tier account is created, the follow steps will run this app on their services.
 #### First, create a database in RDS.
