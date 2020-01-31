@@ -3,6 +3,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 
+let address = "";
 
 //Remember to change this when machines update
 
