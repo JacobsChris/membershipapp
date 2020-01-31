@@ -103,7 +103,7 @@ Unit tests and integration tests are performed on CRUD functionality with no fai
   
 ### Installation and Configuration
 #### Project Architecture
-![Image of project architecture](https://imgur.com/a/BZm8dgZ)
+![Image of project architecture](https://i.imgur.com/8NsYxJz.png)
 
 The reccomended setup is using AWS.
 Once an AWS free-tier account is created, the follow steps will run this app on their services.
