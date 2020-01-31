@@ -1,0 +1,6 @@
+FROM nginx:latest
+
+COPY src/main/resources/static /opt/web-application
+
+COPY nginx.conf /etc/nginx/nginx.conf
+

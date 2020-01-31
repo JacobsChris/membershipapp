@@ -3,6 +3,10 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 
+let address = "";
+
+//Remember to change this when machines update
+
 function makeGroupTable() {
     document.getElementById("tableHeading").innerHTML = "Groups";
 
@@ -12,7 +16,7 @@ function makeGroupTable() {
         },
         persistenceID: "groupPersistence",
         layout: "fitColumns",
-        ajaxURL: "/MembershipApp/gathering/getAll",
+        ajaxURL: address + "MembershipApp/gathering/getAll",
         rowClick: function (e, row) {
             makeMemberTable(row._row.data["id"], row._row.data["location"]);
             var currentGroupID = row._row.data.id;
@@ -47,7 +51,7 @@ function makeMemberTable(currentGroupID, currentGroupName) {
         persistence: {sort: true,},
         persistenceID: "memberPersistence",
         layout: "fitColumns",
-        ajaxURL: "/MembershipApp/gathering/getMembers/" + currentGroupID,
+        ajaxURL: address + "/MembershipApp/gathering/getMembers/" + currentGroupID,
 
         columns: [
             {
@@ -133,7 +137,7 @@ function makeMemberTable(currentGroupID, currentGroupName) {
                 addMemberButton.disabled = true;
             })
             .then(function () {
-                memberTable.setData("/MembershipApp/gathering/getMembers/" + currentGroupID);
+                memberTable.setData(address + "/MembershipApp/gathering/getMembers/" + currentGroupID);
             })
     });
 
@@ -198,10 +202,11 @@ function submitDataChanges(data) {
                 delete memberJSON.id;
                 memberJSON = JSON.stringify(memberJSON);
                 $.ajax({
-                    url: "/MembershipApp/member/update/" + memberID,
+                    url: address + "/MembershipApp/member/update/" + memberID,
                     type: "PUT",
                     data: memberJSON,
-                    contentType: "application/json"
+                    contentType: "application/json",
+                    dataType: "jsonp"
                 });
                 cleanUpText();
                 document.getElementById("goBackButton").disabled = false;
@@ -219,10 +224,11 @@ function submitDataChanges(data) {
 function addMember(tempMemberJSON, currentGroupID) {
     return new Promise((resolve, reject) => {
         $.ajax({
-            url: "/MembershipApp/member/create/" + currentGroupID,
+            url: address + "/MembershipApp/member/create/" + currentGroupID,
             type: "POST",
             data: tempMemberJSON,
-            contentType: "application/json"
+            contentType: "application/json",
+            dataType: "jsonp"
         }).done((response) => {
             resolve(response);
         }).fail((error) => {
@@ -276,7 +282,7 @@ function deleteMember(memberTable, data) {
 
 
                 $.ajax({
-                    url: "/MembershipApp/member/delete/" + memberID,
+                    url: address + "/MembershipApp/member/delete/" + memberID,
                     type: "DELETE",
                 }).then(memberTable.setData())
             }
