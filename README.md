@@ -140,7 +140,7 @@ When in the VM, install docker and create and run the backend of the projet with
   sudo systemctl start docker
   sudo systemctl enable docker
   sudo usermod -aG docker $USER
-  git clone -d docker https://github.com/JacobsChris/membershipapp.git
+  git clone https://github.com/JacobsChris/membershipapp.git
   cd membershipapp
   docker build -t back-end . 
   docker container run --restart always --name Back_End -p 9632:8080 -d back-end
@@ -191,7 +191,7 @@ The code is now:
   sudo systemctl start docker
   sudo systemctl enable docker
   sudo usermod -aG docker $USER
-  git clone -d docker https://github.com/JacobsChris/membershipapp.git
+  git clone https://github.com/JacobsChris/membershipapp.git
   cd membershipapp
   docker build -t front-end -d DockerfileFrontEnd . 
   docker container run --restart always --name Front_End -p 90:80 -d front-end
