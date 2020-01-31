@@ -14,7 +14,6 @@ ssh -i "key.pem" ubuntu@ec2-3-11-111-10.eu-west-2.compute.amazonaws.com "rm memb
 && docker container run --restart unless-stopped --network front-end-back-end --name Front_End -p 90:80 -d front-end \
 && docker container run --restart always --network front-end-back-end --name Back_End -p 9632:8080 -d back-end "
 
-
 #ssh -i "MyKeyPair.pem" ubuntu@ec2-3-9-146-137.eu-west-2.compute.amazonaws.com
 
 wget https://s3.amazonaws.com/rds-downloads/rds-combined-ca-bundle.pem
